@@ -30,7 +30,7 @@ export default function About({
       frontTitle: "Leadership",
       frontSubtitle: "Captain",
       backTitle: "Building Cloud Communities",
-      backDescription: "Led merchandise initiatives and national marketing for AWS Cloud Clubs Philippines. Designed workshops attracting 40+ attendees.",
+      backDescription: "As the newly appointed Captain of AWS Cloud Clubs - NU Baliwag, I transformed the organization from a sub-organization into an independent entity. Reorganized the entire system, implemented new organizational structures, introduced a new set of officers, and spearheaded national marketing efforts for AWS Cloud Clubs Philippines. Successfully grew the club to 100+ memberships in the first term while ensuring consistent branding and student-focused designs across all chapters.",
       linkUrl: "/projects/aws-cloud-leadership",
       linkLabel: "Read More",
     },
@@ -211,13 +211,13 @@ export default function About({
                         Hover to flip
                       </div>
 
-                      <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+                      <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 break-words px-2">
                         {card.frontTitle}
                       </h3>
                       {card.frontSubtitle && (
                         <>
                           <div className="w-16 h-px bg-gray-900 my-3"></div>
-                          <p className="text-xs text-gray-500 uppercase tracking-[0.2em] font-medium">
+                          <p className="text-xs text-gray-500 uppercase tracking-[0.2em] font-medium break-words px-2">
                             {card.frontSubtitle}
                           </p>
                         </>
@@ -253,11 +253,11 @@ export default function About({
                     {/* Background pattern or image */}
                     <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 opacity-90"></div>
 
-                    <div className="relative h-full flex flex-col p-6 overflow-hidden">
-                      <div className="flex-1 flex flex-col">
-                        <h3 className="text-xl font-bold mb-3 line-clamp-2">{card.backTitle}</h3>
+                    <div className="relative h-full flex flex-col p-4 sm:p-6 overflow-hidden">
+                      <div className="flex-1 flex flex-col min-h-0">
+                        <h3 className="text-lg sm:text-xl font-bold mb-3 line-clamp-2 break-words">{card.backTitle}</h3>
                         <div className="w-16 h-px bg-white/50 mb-3 flex-shrink-0"></div>
-                        <p className="text-sm text-gray-300 leading-relaxed line-clamp-4 flex-1">
+                        <p className="text-xs sm:text-sm text-gray-300 leading-relaxed flex-1 break-words">
                           {card.backDescription}
                         </p>
                       </div>

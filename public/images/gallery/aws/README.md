@@ -47,3 +47,4 @@ Required images:
 You can also add general AWS Cloud Clubs images:
 - `aws-1.jpg` through `aws-4.jpg` for the main project gallery
 
+

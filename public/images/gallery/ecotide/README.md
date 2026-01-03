@@ -21,3 +21,4 @@ ecotide/
 
 All images should follow the lowercase-with-hyphens naming convention as per the portfolio standards.
 
+

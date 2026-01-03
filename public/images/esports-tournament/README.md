@@ -55,3 +55,4 @@ This folder contains images for all three esports tournaments.
 
 The `lit-ent-main-display.png` can be used as the featured image in the main gallery if needed.
 
+

@@ -401,7 +401,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               <div className="w-24 h-[2px] bg-black mb-6"></div>
 
               {/* Overview */}
-              <p className="text-lg text-gray-600 leading-relaxed mb-8">
+              <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-8 break-words">
                 {project.overview}
               </p>
 
@@ -471,39 +471,39 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             {/* Main Content - 2 columns */}
             <div className="lg:col-span-2 space-y-16">
               {/* Challenge */}
-              <div className="bg-white p-8 sm:p-10 relative">
+              <div className="bg-white p-6 sm:p-8 lg:p-10 relative">
                 <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-black"></div>
                 <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-black"></div>
                 <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-black"></div>
                 <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-black"></div>
 
-                <h2 className="text-2xl font-bold text-black mb-4">The Challenge</h2>
+                <h2 className="text-xl sm:text-2xl font-bold text-black mb-4 break-words">The Challenge</h2>
                 <div className="w-16 h-px bg-black mb-6"></div>
-                <p className="text-gray-700 leading-relaxed">{project.challenge}</p>
+                <p className="text-gray-700 leading-relaxed break-words">{project.challenge}</p>
               </div>
 
               {/* Solution */}
-              <div className="bg-white p-8 sm:p-10 relative">
+              <div className="bg-white p-6 sm:p-8 lg:p-10 relative">
                 <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-black"></div>
                 <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-black"></div>
                 <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-black"></div>
                 <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-black"></div>
 
-                <h2 className="text-2xl font-bold text-black mb-4">The Solution</h2>
+                <h2 className="text-xl sm:text-2xl font-bold text-black mb-4 break-words">The Solution</h2>
                 <div className="w-16 h-px bg-black mb-6"></div>
-                <p className="text-gray-700 leading-relaxed">{project.solution}</p>
+                <p className="text-gray-700 leading-relaxed break-words">{project.solution}</p>
               </div>
 
               {/* Results */}
-              <div className="bg-white p-8 sm:p-10 relative">
+              <div className="bg-white p-6 sm:p-8 lg:p-10 relative">
                 <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-black"></div>
                 <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-black"></div>
                 <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-black"></div>
                 <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-black"></div>
 
-                <h2 className="text-2xl font-bold text-black mb-4">The Results</h2>
+                <h2 className="text-xl sm:text-2xl font-bold text-black mb-4 break-words">The Results</h2>
                 <div className="w-16 h-px bg-black mb-6"></div>
-                <p className="text-gray-700 leading-relaxed mb-6">{project.results}</p>
+                <p className="text-gray-700 leading-relaxed mb-6 break-words">{project.results}</p>
 
                 <h3 className="text-sm uppercase tracking-wider text-gray-500 font-medium mb-4">
                   Key Achievements
@@ -512,7 +512,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                   {project.achievements.map((achievement, index) => (
                     <li key={index} className="flex items-start gap-3 text-gray-700">
                       <span className="w-1.5 h-1.5 bg-black rounded-full mt-2.5 flex-shrink-0"></span>
-                      <span>{achievement}</span>
+                      <span className="break-words">{achievement}</span>
                     </li>
                   ))}
                 </ul>
