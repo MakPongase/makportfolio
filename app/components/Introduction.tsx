@@ -1,122 +1,98 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 
 interface IntroductionProps {
   title?: string;
-  subtitle?: string;
-  content?: string[];
+  quote?: string;
+  story?: string[];
+  imageUrl?: string;
+  imageAlt?: string;
   className?: string;
 }
 
 export default function Introduction({
-  title = "Why I Do What I Do",
-  subtitle = "My Story",
-  content = [
-    "I am endlessly curious and deeply driven by a desire to understand the world around me. Challenges excite me rather than intimidate me because I see them as opportunities to learn, adapt, and grow. Whether I am exploring new technologies, developing innovative solutions, or leading a project, I approach every task with initiative and a mindset of continuous improvement.",
-    "Beyond skills and achievements, I prioritize people. I believe that real impact comes from understanding the needs of others and creating solutions that make their lives better. This people-first approach guides how I work, whether I am collaborating with teams, mentoring peers, or building experiences for users.",
-    "Over the years, I have taken on a variety of roles and projects, from tech and product development to community leadership, because I thrive in environments where learning never stops. I aim to connect ideas, people, and technology in ways that drive meaningful change. Every project I take on, every initiative I lead, and every challenge I embrace is motivated by curiosity, adaptability, and the belief that innovation is most powerful when it improves lives.",
+  title = "WHY I DO WHAT I DO",
+  quote = "Versatility isn't doing everything—it's having the depth to lead, the skill to build, and the wisdom to connect diverse domains.",
+  story = [
+    "I am a full-stack engineer and community leader driven by the challenge of turning complex ideas into impactful systems. From architecting scalable web platforms and leading a team of 100+ cloud builders, to conducting holistic counseling—my core mission is empowering people through thoughtful technology and high empathy.",
   ],
+  imageUrl = "/images/about-me/mak-pongase-main-picture.png",
+  imageAlt = "John Mark Pongase",
   className = "",
 }: IntroductionProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-
   return (
-    <section
-      id="introduction"
-      className={`relative bg-white border-y border-gray-200 ${className}`}
-    >
-      <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
-        {/* Collapsed View - Clickable */}
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full py-7 flex items-center justify-between gap-4 group"
-        >
-          <div className="flex items-center gap-4">
-            <div className="w-1 h-8 bg-black"></div>
-            <div className="text-left">
-              <p className="text-xs uppercase tracking-[0.2em] text-gray-500 font-medium">
-                {subtitle}
-              </p>
-              <h2 className="text-lg font-bold text-black tracking-tight group-hover:text-gray-600 transition-colors">
-                {title}
-              </h2>
+    <section id="introduction" className={`relative bg-white text-black border-b border-gray-200 ${className}`}>
+      {/* Section Header Bar matching architectural layout */}
+      <div className="border-b border-gray-200 px-6 sm:px-8 lg:px-10 py-6 flex items-center justify-between bg-white">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-black uppercase">
+          {title}
+        </h2>
+        <span className="text-xl sm:text-2xl font-mono font-bold text-gray-400">
+          [01]
+        </span>
+      </div>
+
+      {/* Split Grid Block */}
+      <div className="grid grid-cols-1 lg:grid-cols-12">
+        {/* Left Column: Framed Portrait */}
+        <div className="lg:col-span-4 p-6 sm:p-8 lg:p-10 lg:border-r border-b lg:border-b-0 border-gray-200 bg-gray-50/50 flex flex-col items-center justify-center">
+          <div className="relative w-full max-w-[280px] border border-black bg-white p-3 shadow-xs">
+            {/* Corner Accents */}
+            <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-black -translate-x-1 -translate-y-1"></div>
+            <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-black translate-x-1 -translate-y-1"></div>
+            <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-black -translate-x-1 translate-y-1"></div>
+            <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-black translate-x-1 translate-y-1"></div>
+
+            <div className="relative aspect-[4/5] w-full overflow-hidden bg-gray-100 border border-gray-200">
+              <Image
+                src={imageUrl}
+                alt={imageAlt}
+                fill
+                className="object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out"
+                sizes="(max-width: 768px) 100vw, 280px"
+              />
+            </div>
+
+            <div className="mt-3 pt-2 border-t border-gray-200 flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-gray-600">
+              <span>JOHN MARK PONGASE</span>
+              <span>• BULACAN, PH</span>
             </div>
           </div>
-          
-          {/* Expand/Collapse Icon */}
-          <div className="flex items-center gap-2 text-xs text-gray-500 font-medium uppercase tracking-wider">
-            <span className="hidden sm:inline">
-              {isExpanded ? "Close" : "Read More"}
-            </span>
-            <svg
-              className={`w-4 h-4 transition-transform duration-300 ${
-                isExpanded ? "rotate-180" : ""
-              }`}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
+        </div>
+
+        {/* Right Column: Quote & Story */}
+        <div className="lg:col-span-8 p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-8">
+          {/* Quote Block */}
+          <div className="space-y-3">
+            <div className="text-[10px] font-mono uppercase tracking-[0.25em] text-gray-400">
+              Core Philosophy
+            </div>
+            <blockquote className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-black leading-snug">
+              &ldquo;{quote}&rdquo;
+            </blockquote>
           </div>
-        </button>
 
-        {/* Expanded Content */}
-        <div
-          className={`overflow-hidden transition-all duration-500 ease-in-out ${
-            isExpanded ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
-          }`}
-        >
-          <div className="pb-10 px-6 sm:px-8 lg:px-10">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
-              {/* Image Section */}
-              <div className="md:col-span-1 flex justify-center md:justify-start">
-                <div className="relative w-full max-w-[280px] mx-auto md:mx-0 md:w-full">
-                  {/* Photo frame with corner accents */}
-                  <div className="relative border border-black p-2">
-                    <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-black"></div>
-                    <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-black"></div>
-                    <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-black"></div>
-                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-black"></div>
-                    
-                    <Image
-                      src="/images/about-me/mak-pongase-main-picture.png"
-                      alt="John Mark Pongase"
-                      width={400}
-                      height={400}
-                      className="w-full h-full object-cover grayscale"
-                    />
-                  </div>
-                  {/* Name label */}
-                  <div className="mt-3 text-center">
-                    <p className="text-xs uppercase tracking-[0.2em] text-black font-bold">
-                      John Mark Pongase
-                    </p>
-                    <div className="w-12 h-px bg-black mx-auto mt-1"></div>
-                  </div>
-                </div>
-              </div>
+          {/* Story Paragraphs */}
+          <div className="border-t border-gray-200 pt-6 space-y-4 text-sm sm:text-base text-gray-700 leading-relaxed font-normal">
+            {story.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+          </div>
 
-              {/* Text Content */}
-              <div className="md:col-span-2 space-y-4 text-sm sm:text-base leading-relaxed text-gray-600">
-                {content.map((paragraph, index) => (
-                  <p key={index} className="wrap-break-word">{paragraph}</p>
-                ))}
-                
-                {/* Quote */}
-                <div className="mt-6 pt-6 border-t border-gray-300">
-                  <p className="text-center text-xs font-medium text-black uppercase tracking-[0.15em] italic">
-                    &ldquo;I turn curiosity into stories, and stories into action.&rdquo;
-                  </p>
-                </div>
-              </div>
+          {/* Bottom stats/indicators row */}
+          <div className="grid grid-cols-3 border-t border-gray-200 pt-6 gap-4 text-center sm:text-left">
+            <div>
+              <div className="text-xl sm:text-2xl font-bold font-mono text-black">100+</div>
+              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Cloud Builders</div>
+            </div>
+            <div className="border-l border-gray-200 pl-4">
+              <div className="text-xl sm:text-2xl font-bold font-mono text-black">200+</div>
+              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Clients Guided</div>
+            </div>
+            <div className="border-l border-gray-200 pl-4">
+              <div className="text-xl sm:text-2xl font-bold font-mono text-black">3K+</div>
+              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Roblox Visitors</div>
             </div>
           </div>
         </div>
@@ -124,4 +100,3 @@ export default function Introduction({
     </section>
   );
 }
-

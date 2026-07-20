@@ -11,7 +11,7 @@ interface FooterProps {
 }
 
 export default function Footer({
-  name = "Mak Pongase",
+  name = "John Mark Pongase",
   email = "macmacpongs02@gmail.com",
   phone = "+63 962 943 8648",
   location = "San Rafael, Bulacan",
@@ -21,139 +21,134 @@ export default function Footer({
 
   const navLinks = [
     { label: "Home", href: "#home" },
-    { label: "Projects", href: "#about" },
+    { label: "Selected Work", href: "#about" },
+    { label: "Philosophy", href: "#introduction" },
     { label: "Certificates", href: "#certificates" },
-    { label: "Skills", href: "#skills" },
+    { label: "Expertise", href: "#skills" },
     { label: "Contact", href: "#contact" },
   ];
 
   const socialLinks = [
-    { label: "GitHub", href: "https://github.com/MakPongase" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/john-mark-pongase-7732482b1/" },
-    { label: "Facebook", href: "https://www.facebook.com/von.mak.2025" },
-    { label: "Instagram", href: "https://www.instagram.com/thatonerandommak/" },
+    { label: "GitHub ↗", href: "https://github.com/MakPongase" },
+    { label: "LinkedIn ↗", href: "https://www.linkedin.com/in/john-mark-pongase-7732482b1/" },
+    { label: "Facebook ↗", href: "https://www.facebook.com/von.mak.2025" },
+    { label: "Instagram ↗", href: "https://www.instagram.com/thatonerandommak/" },
   ];
 
   return (
-    <footer className={`relative bg-black text-white ${className}`}>
-      {/* Decorative top line */}
-      <div className="h-px bg-white/20"></div>
-
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* About Section */}
+    <footer className={`relative bg-black text-white border-t border-gray-800 ${className}`}>
+      {/* Grid Columns */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:border-b border-gray-800">
+        {/* Col 1: Identity */}
+        <div className="p-8 sm:p-12 md:border-r border-gray-800 flex flex-col justify-between gap-8">
           <div className="space-y-4">
-            <div className="space-y-2">
-              <h3 className="text-xl font-bold uppercase tracking-[0.15em]">
-                {name}
-              </h3>
-              <div className="w-12 h-px bg-white"></div>
+            <div className="text-xs font-mono uppercase tracking-[0.25em] text-gray-500">
+              Identity
             </div>
-            <p className="text-sm text-white/70 leading-relaxed">
-              Full-Stack Developer, Cloud Leader, and Project Manager specializing
-              in building scalable web applications and leading tech communities.
+            <h3 className="text-2xl font-bold uppercase tracking-tight text-white">
+              {name}
+            </h3>
+            <p className="text-xs font-mono uppercase tracking-wider text-gray-400 leading-relaxed">
+              Full-Stack Software Engineer, Cloud Club Captain, and Architectural Thinker.
             </p>
           </div>
+          <div className="text-xs font-mono text-gray-600 uppercase">
+            [SYS_VER: 2026.1]
+          </div>
+        </div>
 
-          {/* Quick Links */}
+        {/* Col 2: Navigation */}
+        <div className="p-8 sm:p-12 lg:border-r border-gray-800 flex flex-col justify-between gap-8">
           <div className="space-y-4">
-            <div className="space-y-2">
-              <h3 className="text-sm font-bold uppercase tracking-[0.2em]">
-                Quick Links
-              </h3>
-              <div className="w-12 h-px bg-white/50"></div>
+            <div className="text-xs font-mono uppercase tracking-[0.25em] text-gray-500">
+              Directory
             </div>
-            <nav className="space-y-2">
+            <nav className="space-y-2.5">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="block text-sm text-white/70 hover:text-white transition-colors"
+                  className="block text-sm font-mono font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors"
                 >
                   {link.label}
                 </Link>
               ))}
             </nav>
           </div>
+          <div className="text-xs font-mono text-gray-600 uppercase">
+            [INDEX]
+          </div>
+        </div>
 
-          {/* Contact Info */}
+        {/* Col 3: Direct Contact */}
+        <div className="p-8 sm:p-12 md:border-r border-gray-800 flex flex-col justify-between gap-8">
           <div className="space-y-4">
-            <div className="space-y-2">
-              <h3 className="text-sm font-bold uppercase tracking-[0.2em]">
-                Contact
-              </h3>
-              <div className="w-12 h-px bg-white/50"></div>
+            <div className="text-xs font-mono uppercase tracking-[0.25em] text-gray-500">
+              Coordinates
             </div>
-            <div className="space-y-3 text-sm text-white/70">
-              <a
-                href={`mailto:${email}`}
-                className="block hover:text-white transition-colors"
-              >
-                {email}
-              </a>
-              <a
-                href={`tel:${phone.replace(/\s/g, "")}`}
-                className="block hover:text-white transition-colors"
-              >
-                {phone}
-              </a>
-              <p>{location}</p>
+            <div className="space-y-3 text-sm font-mono text-gray-300">
+              <div>
+                <span className="block text-[10px] text-gray-500 uppercase">Email</span>
+                <a href={`mailto:${email}`} className="font-bold hover:text-white transition-colors break-all">
+                  {email}
+                </a>
+              </div>
+              <div>
+                <span className="block text-[10px] text-gray-500 uppercase">Phone</span>
+                <a href={`tel:${phone.replace(/\s/g, "")}`} className="font-bold hover:text-white transition-colors">
+                  {phone}
+                </a>
+              </div>
+              <div>
+                <span className="block text-[10px] text-gray-500 uppercase">Location</span>
+                <span className="font-bold">{location}</span>
+              </div>
             </div>
           </div>
+          <div className="text-xs font-mono text-gray-600 uppercase">
+            [PH_TIME]
+          </div>
+        </div>
 
-          {/* Social Links */}
+        {/* Col 4: Network */}
+        <div className="p-8 sm:p-12 flex flex-col justify-between gap-8">
           <div className="space-y-4">
-            <div className="space-y-2">
-              <h3 className="text-sm font-bold uppercase tracking-[0.2em]">
-                Follow Me
-              </h3>
-              <div className="w-12 h-px bg-white/50"></div>
+            <div className="text-xs font-mono uppercase tracking-[0.25em] text-gray-500">
+              Network
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               {socialLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-sm text-white/70 hover:text-white transition-colors"
+                  className="block text-sm font-mono font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors"
                 >
                   {link.label}
                 </a>
               ))}
             </div>
           </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-white/20">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/50">
-            <p className="uppercase tracking-wider">
-              © {currentYear} {name}. All rights reserved.
-            </p>
-            <div className="flex items-center gap-4">
-              <a
-                href="#"
-                className="hover:text-white transition-colors uppercase tracking-wider"
-              >
-                Privacy Policy
-              </a>
-              <span className="w-px h-3 bg-white/20"></span>
-              <a
-                href="#"
-                className="hover:text-white transition-colors uppercase tracking-wider"
-              >
-                Terms of Service
-              </a>
-            </div>
+          <div className="text-xs font-mono text-gray-600 uppercase">
+            [SOCIALS]
           </div>
         </div>
       </div>
 
-      {/* Decorative bottom line */}
-      <div className="h-px bg-white/20"></div>
+      {/* Bottom Bar */}
+      <div className="px-8 sm:px-12 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-gray-500 uppercase tracking-widest border-t border-gray-900">
+        <p>
+          © {currentYear} {name}. ALL RIGHTS RESERVED.
+        </p>
+        <div className="flex items-center gap-6">
+          <span>ARCHITECTURAL GRID DESIGN</span>
+          <span>•</span>
+          <a href="#home" className="hover:text-white transition-colors">
+            TOP ↑
+          </a>
+        </div>
+      </div>
     </footer>
   );
 }
-
-

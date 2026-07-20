@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ProjectGallery from "../components/ProjectGallery";
+import ProjectBriefing from "../components/ProjectBriefing";
+import VisualGalleryLayout from "../components/VisualGalleryLayout";
 
 interface ProjectData {
   slug: string;
@@ -352,6 +354,92 @@ const projects: Record<string, ProjectData> = {
       },
     ],
   },
+  "dialylink": {
+    slug: "dialylink",
+    title: "DialyLink",
+    category: "Full-Stack Development & AI",
+    year: "2026",
+    role: "Full-Stack Developer",
+    overview: "DialyLink is a comprehensive telemedicine and dialysis patient monitoring platform designed to bridge the gap between patients, nephrologists, and system administrators. By offering a unified interface for all stakeholders, DialyLink ensures continuous, remote, and AI-assisted care for dialysis patients.",
+    challenge: "Improving the quality of care for dialysis patients requires real-time monitoring, easy access to medical professionals, and AI-driven insights. The challenge was to leverage the patient's actual medical data without the risks of hallucination. Standard Retrieval-Augmented Generation (RAG) setups that rely on vector databases can hallucinate, which is a critical risk for maintaining healthcare compliance and patient safety.",
+    solution: "Built a platform with a decoupled client-server architecture that provides tailored experiences for Patients, Doctors, and Admins. Developed a unique AI architecture that queries the PostgreSQL database for the patient's exact medical history and injects it directly into the Gemini prompt dynamically. This approach guarantees 100% data accuracy and eliminates hallucination risks.",
+    results: "Delivered a secure platform with AI-powered symptom triage that recommends the most appropriate medical specialist, a health companion chat with context-aware answers, and an AI Clinical Advisor that rapidly summarizes patient records. Patient safety is further ensured through a mandatory manual verification system for doctors before they can accept appointments.",
+    techStack: ["Next.js 14", "Tailwind CSS", "Node.js", "Express.js", "PostgreSQL", "Neon", "Supabase", "Google Gemini 2.5 Flash"],
+    achievements: [
+      "Decoupled client-server architecture serving 3 distinct user roles",
+      "AI-Powered Symptom Triage using Google Gemini",
+      "Health Companion Chat with secure real-time context injection",
+      "AI-Powered Clinical Advisor for rapid patient record summarization",
+      "100% data accuracy AI integration avoiding vector DB hallucination risks",
+      "Secure doctor verification system managed by system administrators",
+    ],
+    gallery: [
+      "/images/dialylink/Screenshot (877).png",
+      "/images/dialylink/Screenshot (878).png",
+      "/images/dialylink/Screenshot (879).png",
+      "/images/dialylink/Screenshot (880).png"
+    ],
+  },
+  "graphic-designing": {
+    slug: "graphic-designing",
+    title: "Graphic Design Portfolio",
+    category: "Creative & Branding",
+    year: "2023 - 2024",
+    role: "Lead Graphic Designer",
+    overview: "A comprehensive showcase of my graphic design work, encompassing brand identity creation, social media marketing materials, event posters, and merchandise design. This portfolio highlights my ability to translate abstract ideas into compelling visual assets.",
+    challenge: "Each design project presented unique challenges—from modernizing a university organization's mascot to developing a cohesive brand identity for a local food business (Meister Spud) and creating marketing assets for SaaS platforms like LessonPlanner. The core challenge was maintaining a high standard of visual aesthetics while ensuring the designs met specific business goals.",
+    solution: "Leveraged industry-standard design tools and a deep understanding of color theory, typography, and visual hierarchy to craft tailored solutions. For Meister Spud, I designed a complete brand package including logos and promotional posters. For LessonPlanner, I focused on clean, modern tech-oriented marketing assets and UI tutorials. For the GDSC rebranding, I created scalable vector graphics suitable for both digital use and physical merchandise.",
+    results: "Delivered highly effective visual assets that drove engagement and brand recognition. The Meister Spud branding established a strong local presence; LessonPlanner's marketing assets successfully communicated its value proposition; and the GDSC mascot rebranding led to a highly successful merchandise launch.",
+    techStack: ["Adobe Illustrator", "Photoshop", "Figma", "Canva", "Brand Identity", "Social Media Graphics"],
+    achievements: [
+      "Led complete mascot rebranding and merchandise launch for GDSC NU Baliwag",
+      "Designed full brand identity and marketing posters for Meister Spud",
+      "Developed comprehensive social media campaign graphics for LessonPlanner",
+      "Consistently delivered high-quality visual assets that drove audience engagement",
+    ],
+    gallery: [
+      "/images/Graphic Designing/meister_spud-potatobusiness/Meister Spud - POSTER 1.png",
+      "/images/Graphic Designing/meister_spud-potatobusiness/Logo MeisterSpud.png",
+      "/images/Graphic Designing/meister_spud-potatobusiness/HOT, BAKED.png",
+      "/images/Graphic Designing/meister_spud-potatobusiness/MEISTER PUD - BACKGROUND.png",
+      "/images/Graphic Designing/meister_spud-potatobusiness/Meister Spud.png",
+    ],
+    additionalGalleries: [
+      {
+        title: "LessonPlanner Marketing & UI Assets",
+        description: "Modern, tech-focused marketing materials, engaging UI teasers, and video tutorials designed specifically for LessonPlanner to communicate its AI-powered features.",
+        images: [
+          "/images/Graphic Designing/LESSON PLAN TUTORIAL.mp4",
+          "/images/Graphic Designing/lessonplanner/LessonPlanner_Thumbnail.webp",
+          "/images/Graphic Designing/lessonplanner/Generate Lesson Plan in Minutes! (3).png",
+          "/images/Graphic Designing/lessonplanner/New UI Teaser (9).png",
+          "/images/Graphic Designing/lessonplanner/New UI Teaser (10).png",
+          "/images/Graphic Designing/lessonplanner/New UI Teaser (11).png",
+          "/images/Graphic Designing/lessonplanner/New UI Teaser (12).png",
+          "/images/Graphic Designing/lessonplanner/New UI Teaser (13).png",
+          "/images/Graphic Designing/lessonplanner/New UI Teaser (14).png",
+          "/images/Graphic Designing/lessonplanner/Affiliate Program.png",
+          "/images/Graphic Designing/lessonplanner/Weekends Posting  Square Type  Quotes (1).png",
+          "/images/Graphic Designing/lessonplanner/Weekends Posting  Square Type  Quotes (2).png",
+          "/images/Graphic Designing/lessonplanner/Weekends Posting  Square Type  Quotes (3).png",
+        ],
+      },
+      {
+        title: "ARKDEV Brand Identity & UI Concepts",
+        description: "Conceptual brand identity, promotional materials, and UI design concepts developed for ARKDEV.",
+        images: [
+          "/images/Graphic Designing/ARKDEV/Apps (ArkDev).png",
+          "/images/Graphic Designing/ARKDEV/Apps (ArkDev) (1).png",
+          "/images/Graphic Designing/ARKDEV/Apps (ArkDev) (2).png",
+          "/images/Graphic Designing/ARKDEV/CARD FRONT.png",
+          "/images/Graphic Designing/ARKDEV/Portrait.png",
+          "/images/Graphic Designing/ARKDEV/Portrait (2).png",
+          "/images/Graphic Designing/ARKDEV/Portrait (3).png",
+          "/images/Graphic Designing/ARKDEV/Portrait (4).png",
+        ],
+      },
+    ],
+  },
 };
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -362,256 +450,196 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     notFound();
   }
 
-  return (
-    <main className="min-h-screen bg-white">
-      {/* Fixed Navbar Spacer */}
-      <div className="h-20"></div>
-
-      {/* Hero Section */}
-      <section className="relative bg-white pt-12 pb-16 overflow-hidden border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          {/* Back button */}
-          <Link
-            href="/#about"
-            className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-black mb-8 transition-colors group"
-          >
-            <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  if (project.slug === "graphic-designing") {
+    return (
+      <main className="min-h-screen bg-white text-black selection:bg-black selection:text-white">
+        <div className="h-20"></div>
+        <div className="border-b border-gray-200 px-6 sm:px-12 py-4 flex items-center justify-between">
+          <Link href="/#about" className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors group">
+            <svg className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Back to Portfolio
           </Link>
+          <div className="text-xs font-mono uppercase tracking-widest text-gray-400 flex items-center gap-2 sm:gap-3">
+            <span className="text-black font-bold truncate max-w-[180px] sm:max-w-none">{project.category}</span>
+            <span>•</span>
+            <span>{project.year}</span>
+          </div>
+        </div>
+        <VisualGalleryLayout project={project} />
+      </main>
+    );
+  }
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            {/* Left: Project Info */}
+  return (
+    <main className="min-h-screen bg-white text-black selection:bg-black selection:text-white">
+      {/* Fixed Navbar Spacer */}
+      <div className="h-20"></div>
+
+      {/* Top Navigation Bar */}
+      <div className="border-b border-gray-200 px-6 sm:px-12 py-4 flex items-center justify-between">
+        <Link
+          href="/#about"
+          className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors group"
+        >
+          <svg className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to Portfolio
+        </Link>
+
+        <div className="text-xs font-mono uppercase tracking-widest text-gray-400 flex items-center gap-2 sm:gap-3">
+          <span className="text-black font-bold truncate max-w-[180px] sm:max-w-none">{project.category}</span>
+          <span>•</span>
+          <span>{project.year}</span>
+        </div>
+      </div>
+
+      {/* Editorial Header & Metadata Band */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-12 pt-10 pb-8 border-b border-gray-200">
+        {/* Dossier Code Label */}
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-3">
+          <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-gray-400">
+            PROJECT DOSSIER // {project.slug.toUpperCase()}
+          </span>
+          <div className="flex items-center gap-4 text-xs font-mono text-gray-500">
+            <span><strong className="text-black">ROLE:</strong> {project.role}</span>
+            <span>•</span>
+            <span><strong className="text-black">TIMELINE:</strong> {project.year}</span>
+          </div>
+        </div>
+
+        {/* Title & Live Action Button Row */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-black leading-none max-w-4xl">
+            {project.title}
+          </h1>
+
+          {project.link && (
+            <Link
+              href={project.link}
+              target="_blank"
+              className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-black text-white text-xs font-mono font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors flex-shrink-0 shadow-xs"
+            >
+              <span>{project.linkLabel || "View Live Project"}</span>
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </Link>
+          )}
+        </div>
+
+        {/* Technology Stack Pills */}
+        <div className="pt-4 border-t border-gray-100 flex flex-wrap items-center gap-1.5">
+          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-gray-400 mr-2">
+            STACK & TOOLS:
+          </span>
+          {project.techStack.map((tech, index) => (
+            <span
+              key={index}
+              className="px-2.5 py-1 bg-gray-50 border border-gray-200 text-[11px] font-mono font-semibold text-black"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      {/* Main Visual Showcase (Immediate Visual Gratification!) */}
+      {project.gallery && project.gallery.length > 0 && (
+        <section className="max-w-7xl mx-auto px-6 sm:px-12 py-10 border-b border-gray-200">
+          <div className="w-full bg-gray-100 border border-gray-200 overflow-hidden flex items-center justify-center max-h-[640px] group">
+            <img
+              src={project.gallery[0]}
+              alt={project.title}
+              className="w-full h-auto max-h-[640px] object-contain sm:object-cover object-center group-hover:scale-[1.01] transition-transform duration-700"
+            />
+          </div>
+          <div className="mt-3 flex items-center justify-between text-xs font-mono text-gray-400">
+            <span>FIGURE 01 // MAIN VISUAL SHOWCASE</span>
+            <span className="text-black font-semibold">{project.title.toUpperCase()}</span>
+          </div>
+        </section>
+      )}
+
+      {/* Interactive Case Study Briefing (Non-Wordy, Tabbed, Scannable) */}
+      <ProjectBriefing
+        overview={project.overview}
+        challenge={project.challenge}
+        solution={project.solution}
+        results={project.results}
+        achievements={project.achievements}
+      />
+
+      {/* Marketing Impact Section */}
+      {project.marketingGallery && project.marketingGallery.length > 0 && (
+        <section className="max-w-7xl mx-auto px-6 sm:px-12 py-12 border-b border-gray-200">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
             <div>
-              {/* Category & Year */}
-              <div className="flex items-center gap-4 mb-4">
-                <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-medium">
-                  {project.category}
-                </span>
-                <span className="text-xs text-gray-400">•</span>
-                <span className="text-xs text-gray-500">{project.year}</span>
-              </div>
-
-              {/* Title */}
-              <h1 className="text-4xl sm:text-5xl font-bold text-black mb-6 tracking-tight">
-                {project.title}
-              </h1>
-
-              <div className="w-24 h-[2px] bg-black mb-6"></div>
-
-              {/* Overview */}
-              <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-8 break-words">
-                {project.overview}
+              <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-tight text-black">
+                Marketing Impact & Outreach
+              </h2>
+              <p className="text-sm text-gray-600 mt-1 max-w-2xl">
+                The project became a self-marketing powerhouse, reaching thousands of students organically without aggressive promotional efforts.
               </p>
-
-              {/* Tech Stack */}
-              <div className="mb-8">
-                <h3 className="text-xs uppercase tracking-wider text-gray-500 font-medium mb-3">
-                  Technologies
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {project.techStack.map((tech, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1.5 bg-gray-100 text-xs text-gray-700 font-medium"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Action Button */}
-              {project.link && (
-                <Link
-                  href={project.link}
-                  target="_blank"
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-black text-white text-sm font-medium uppercase tracking-wider hover:bg-gray-800 transition-colors"
-                >
-                  {project.linkLabel || "View Project"}
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                </Link>
-              )}
             </div>
-
-            {/* Right: Featured Image */}
-            <div className="relative">
-              <div className="relative aspect-[4/3] bg-gray-100 group overflow-hidden">
-                {/* Corner accents */}
-                <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-black z-10"></div>
-                <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-black z-10"></div>
-                <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-black z-10"></div>
-                <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-black z-10"></div>
-
-                {/* Featured Image */}
-                {project.gallery && project.gallery.length > 0 ? (
-                  <img
-                    src={project.gallery[0]}
-                    alt={project.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-gray-400 text-sm">Featured Image</span>
-                  </div>
-                )}
-              </div>
-            </div>
+            <span className="text-xs font-mono font-bold text-gray-400">
+              [{project.marketingGallery.length} FILES]
+            </span>
           </div>
-        </div>
-      </section>
 
-      {/* Content Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Main Content - 2 columns */}
-            <div className="lg:col-span-2 space-y-16">
-              {/* Challenge */}
-              <div className="bg-white p-6 sm:p-8 lg:p-10 relative">
-                <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-black"></div>
-                <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-black"></div>
-                <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-black"></div>
-                <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-black"></div>
+          <ProjectGallery images={project.marketingGallery} projectTitle={`${project.title} - Marketing`} />
+        </section>
+      )}
 
-                <h2 className="text-xl sm:text-2xl font-bold text-black mb-4 break-words">The Challenge</h2>
-                <div className="w-16 h-px bg-black mb-6"></div>
-                <p className="text-gray-700 leading-relaxed break-words">{project.challenge}</p>
-              </div>
-
-              {/* Solution */}
-              <div className="bg-white p-6 sm:p-8 lg:p-10 relative">
-                <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-black"></div>
-                <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-black"></div>
-                <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-black"></div>
-                <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-black"></div>
-
-                <h2 className="text-xl sm:text-2xl font-bold text-black mb-4 break-words">The Solution</h2>
-                <div className="w-16 h-px bg-black mb-6"></div>
-                <p className="text-gray-700 leading-relaxed break-words">{project.solution}</p>
-              </div>
-
-              {/* Results */}
-              <div className="bg-white p-6 sm:p-8 lg:p-10 relative">
-                <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-black"></div>
-                <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-black"></div>
-                <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-black"></div>
-                <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-black"></div>
-
-                <h2 className="text-xl sm:text-2xl font-bold text-black mb-4 break-words">The Results</h2>
-                <div className="w-16 h-px bg-black mb-6"></div>
-                <p className="text-gray-700 leading-relaxed mb-6 break-words">{project.results}</p>
-
-                <h3 className="text-sm uppercase tracking-wider text-gray-500 font-medium mb-4">
-                  Key Achievements
-                </h3>
-                <ul className="space-y-3">
-                  {project.achievements.map((achievement, index) => (
-                    <li key={index} className="flex items-start gap-3 text-gray-700">
-                      <span className="w-1.5 h-1.5 bg-black rounded-full mt-2.5 flex-shrink-0"></span>
-                      <span className="break-words">{achievement}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Marketing Impact Section - Conditional */}
-              {project.marketingGallery && project.marketingGallery.length > 0 && (
-                <div className="bg-white p-8 sm:p-10 relative">
-                  <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-black"></div>
-                  <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-black"></div>
-                  <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-black"></div>
-                  <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-black"></div>
-
-                  <h2 className="text-2xl font-bold text-black mb-4">Marketing Impact</h2>
-                  <div className="w-16 h-px bg-black mb-6"></div>
-                  <p className="text-gray-700 leading-relaxed mb-8">
-                    The game became a self-marketing powerhouse, reaching thousands of students organically without aggressive promotional efforts. 
-                    These analytics showcase how quality content naturally attracts and engages audiences.
-                  </p>
-
-                  {/* Marketing Gallery Grid with Modal */}
-                  <ProjectGallery images={project.marketingGallery} projectTitle={`${project.title} - Marketing`} />
+      {/* Additional Galleries Section (e.g. Tournaments, Workshops) */}
+      {project.additionalGalleries && project.additionalGalleries.length > 0 && (
+        <>
+          {project.additionalGalleries.map((gallery, galleryIndex) => (
+            <section key={galleryIndex} className="max-w-7xl mx-auto px-6 sm:px-12 py-12 border-b border-gray-200">
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-tight text-black">
+                    {gallery.title}
+                  </h2>
+                  {gallery.description && (
+                    <p className="text-sm text-gray-600 mt-1 max-w-2xl">
+                      {gallery.description}
+                    </p>
+                  )}
                 </div>
-              )}
+                <span className="text-xs font-mono font-bold text-gray-400">
+                  [{gallery.images.length} FILES]
+                </span>
+              </div>
 
-              {/* Additional Galleries Section - Tournament Specific */}
-              {project.additionalGalleries && project.additionalGalleries.length > 0 && (
-                <>
-                  {project.additionalGalleries.map((gallery, galleryIndex) => (
-                    <div key={galleryIndex} className="bg-white p-8 sm:p-10 relative">
-                      <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-black"></div>
-                      <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-black"></div>
-                      <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-black"></div>
-                      <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-black"></div>
+              <ProjectGallery images={gallery.images} projectTitle={gallery.title} />
+            </section>
+          ))}
+        </>
+      )}
 
-                      <h2 className="text-2xl font-bold text-black mb-4">{gallery.title}</h2>
-                      <div className="w-16 h-px bg-black mb-6"></div>
-                      
-                      {gallery.description && (
-                        <p className="text-gray-700 leading-relaxed mb-8">
-                          {gallery.description}
-                        </p>
-                      )}
-
-                      {/* Tournament Gallery Grid with Modal */}
-                      <ProjectGallery images={gallery.images} projectTitle={gallery.title} />
-                    </div>
-                  ))}
-                </>
-              )}
-
-              {/* Gallery Section - Only show if no additional galleries (hide for Lit Entertainment) */}
-              {!project.additionalGalleries && project.gallery && project.gallery.length > 0 && (
-                <div className="bg-white p-8 sm:p-10 relative">
-                  <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-black"></div>
-                  <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-black"></div>
-                  <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-black"></div>
-                  <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-black"></div>
-
-                  <h2 className="text-2xl font-bold text-black mb-4">Project Gallery</h2>
-                  <div className="w-16 h-px bg-black mb-8"></div>
-
-                  {/* Gallery Grid with Modal */}
-                  <ProjectGallery images={project.gallery} projectTitle={project.title} />
-                </div>
-              )}
+      {/* Standard Project Gallery (when no additional Galleries) */}
+      {!project.additionalGalleries && project.gallery && project.gallery.length > 1 && (
+        <section className="max-w-7xl mx-auto px-6 sm:px-12 py-12 border-b border-gray-200">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-tight text-black">
+                Project Gallery & Screenshots
+              </h2>
+              <p className="text-sm text-gray-600 mt-1">
+                Visual walkthrough and highlights from {project.title}.
+              </p>
             </div>
-
-            {/* Sidebar - 1 column */}
-            <div className="space-y-8">
-              {/* Quick Facts */}
-              <div className="bg-white p-6 relative sticky top-24">
-                <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-black"></div>
-                <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-black"></div>
-                <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-black"></div>
-                <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-black"></div>
-
-                <h3 className="text-sm uppercase tracking-wider text-gray-500 font-medium mb-6">
-                  Project Info
-                </h3>
-                <div className="space-y-4 text-sm">
-                  <div>
-                    <span className="text-gray-500 block mb-1">Category</span>
-                    <p className="text-black font-medium">{project.category}</p>
-                  </div>
-                  <div className="pt-4 border-t border-gray-100">
-                    <span className="text-gray-500 block mb-1">Timeline</span>
-                    <p className="text-black font-medium">{project.year}</p>
-                  </div>
-                  <div className="pt-4 border-t border-gray-100">
-                    <span className="text-gray-500 block mb-1">My Role</span>
-                    <p className="text-black font-medium">{project.role}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <span className="text-xs font-mono font-bold text-gray-400">
+              [{project.gallery.slice(1).length} FILES]
+            </span>
           </div>
-        </div>
-      </section>
+
+          <ProjectGallery images={project.gallery.slice(1)} projectTitle={project.title} />
+        </section>
+      )}
     </main>
   );
 }

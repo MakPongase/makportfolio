@@ -9,7 +9,7 @@ interface SkillsProps {
 }
 
 export default function Skills({
-  title = "Technical Expertise",
+  title = "TECHNICAL EXPERTISE",
   subtitle = "Skills & Tools",
   className = "",
 }: SkillsProps) {
@@ -38,30 +38,31 @@ export default function Skills({
       "AWS Cloud",
       "Docker",
     ],
-    "Game Development": ["Roblox Studio", "Lua", "GameMaker"],
+    "Game & 3D Development": ["Roblox Studio", "Lua", "GameMaker", "3D Modeling"],
   };
 
   const tools = {
-    "Development Tools": [
+    "Development & IDEs": [
       "VS Code",
       "Cursor IDE",
       "Git/GitHub",
       "Chrome DevTools",
       "Figma",
     ],
-    "AI-Assisted Development": [
+    "AI-Assisted Engineering": [
       "ChatGPT",
       "Claude",
       "GitHub Copilot",
-      "Gemini",
+      "Gemini AI",
     ],
-    "Productivity & Collaboration": [
+    "Productivity & Agile": [
       "Microsoft Office",
       "Google Workspace",
       "Trello",
       "Slack",
+      "Jira",
     ],
-    "Social Media Management": [
+    "Marketing & Community": [
       "Meta Business Suite",
       "Canva",
       "Buffer",
@@ -73,107 +74,86 @@ export default function Skills({
   const displayData = activeTab === "skills" ? skills : tools;
 
   return (
-    <section
-      id="skills"
-      className={`relative min-h-screen bg-white py-24 overflow-hidden ${className}`}
-    >
-      {/* Decorative background lines */}
-      <div className="absolute inset-0 pointer-events-none opacity-20">
-        <div className="absolute left-[10%] top-0 bottom-0 w-px bg-linear-to-b from-transparent via-gray-300 to-transparent"></div>
-        <div className="absolute right-[10%] top-0 bottom-0 w-px bg-linear-to-b from-transparent via-gray-300 to-transparent"></div>
-        <div className="absolute top-[20%] left-0 right-0 h-px bg-linear-to-r from-transparent via-gray-300 to-transparent"></div>
+    <section id="skills" className={`relative bg-white text-black border-b border-gray-200 ${className}`}>
+      {/* Section Header Bar */}
+      <div className="border-b border-gray-200 px-8 sm:px-12 lg:px-16 py-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-black uppercase">
+          {title}
+        </h2>
+        <span className="text-xl sm:text-2xl font-mono font-bold text-gray-400 self-start sm:self-auto">
+          [04]
+        </span>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 z-10">
-        <div className="space-y-16">
-          {/* Section Header */}
-          <div className="text-center space-y-6">
-            <div className="flex items-center justify-center gap-6">
-              <span className="w-16 h-px bg-gray-400"></span>
-              <p className="text-xs uppercase tracking-[0.3em] text-gray-500 font-medium">
-                {subtitle}
-              </p>
-              <span className="w-16 h-px bg-gray-400"></span>
-            </div>
+      {/* Tab Switcher Bar */}
+      <div className="border-b border-gray-200 px-8 sm:px-12 lg:px-16 py-4 flex flex-wrap gap-2 bg-gray-50/50">
+        <button
+          onClick={() => setActiveTab("skills")}
+          className={`px-6 py-2.5 text-xs font-mono font-bold uppercase tracking-widest border transition-all duration-300 ${
+            activeTab === "skills"
+              ? "bg-black text-white border-black"
+              : "bg-white text-gray-700 border-gray-300 hover:border-black"
+          }`}
+        >
+          Technical Skills
+        </button>
+        <button
+          onClick={() => setActiveTab("tools")}
+          className={`px-6 py-2.5 text-xs font-mono font-bold uppercase tracking-widest border transition-all duration-300 ${
+            activeTab === "tools"
+              ? "bg-black text-white border-black"
+              : "bg-white text-gray-700 border-gray-300 hover:border-black"
+          }`}
+        >
+          Tools & Platforms
+        </button>
+      </div>
 
-            <h2 className="text-5xl sm:text-6xl md:text-7xl font-bold text-black tracking-tight">
-              {title}
-            </h2>
-
-            <div className="flex justify-center">
-              <div className="w-24 h-[2px] bg-black"></div>
-            </div>
-          </div>
-
-          {/* Tab Switcher */}
-          <div className="flex justify-center">
-            <div className="inline-flex border border-black">
-              <button
-                onClick={() => setActiveTab("skills")}
-                className={`px-12 py-4 text-sm font-bold uppercase tracking-[0.2em] transition-all duration-300 ${
-                  activeTab === "skills"
-                    ? "bg-gray-900 text-white"
-                    : "bg-white text-gray-600 hover:bg-white"
-                }`}
-              >
-                Technical Skills
-              </button>
-              <div className="w-px bg-gray-900"></div>
-              <button
-                onClick={() => setActiveTab("tools")}
-                className={`px-12 py-4 text-sm font-bold uppercase tracking-[0.2em] transition-all duration-300 ${
-                  activeTab === "tools"
-                    ? "bg-gray-900 text-white"
-                    : "bg-white text-gray-600 hover:bg-white"
-                }`}
-              >
-                Tools & Platforms
-              </button>
-            </div>
-          </div>
-
-          {/* Content Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {Object.entries(displayData).map(([category, items], index) => (
-              <div
-                key={index}
-                className="relative bg-white border border-black p-8"
-              >
-                {/* Corner accents */}
-                <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-black"></div>
-                <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-black"></div>
-                <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-black"></div>
-                <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-black"></div>
-
-                {/* Category Title */}
-                <div className="mb-6 pb-4 border-b border-black">
-                  <h3 className="text-lg font-bold text-black uppercase tracking-[0.15em]">
+      {/* Grid of Category Cells */}
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        {Object.entries(displayData).map(([category, items], index) => (
+          <div
+            key={index}
+            className="border-r border-b border-gray-200 p-8 sm:p-12 flex flex-col justify-between gap-8 group hover:bg-gray-50/40 transition-colors"
+          >
+            <div className="space-y-6">
+              {/* Category Header */}
+              <div className="flex items-center justify-between border-b border-gray-200 pb-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-mono font-bold text-black">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-xs font-mono text-gray-400">/</span>
+                  <h3 className="text-lg sm:text-xl font-bold tracking-tight text-black uppercase">
                     {category}
                   </h3>
                 </div>
-
-                {/* Items Grid */}
-                <div className="flex flex-wrap gap-3">
-                  {items.map((item, itemIndex) => (
-                    <div
-                      key={itemIndex}
-                      className="relative px-4 py-2 bg-white border border-black text-sm font-medium text-black hover:bg-black hover:text-white transition-all duration-300"
-                    >
-                      {item}
-                    </div>
-                  ))}
-                </div>
-
-                {/* Item Count */}
-                <div className="mt-6 pt-4 border-t border-gray-200">
-                  <p className="text-xs uppercase tracking-[0.2em] text-gray-500 text-right">
-                    {items.length} {activeTab === "skills" ? "Skills" : "Tools"}
-                  </p>
-                </div>
+                <span className="text-xs font-mono text-gray-400">
+                  [{items.length}]
+                </span>
               </div>
-            ))}
+
+              {/* Skill Tags */}
+              <div className="flex flex-wrap gap-2.5 pt-2">
+                {items.map((item, iIndex) => (
+                  <div
+                    key={iIndex}
+                    className="px-4 py-2 bg-white border border-gray-300 text-xs font-mono font-medium text-gray-800 uppercase tracking-wider group-hover:border-black transition-colors"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Cell Footer */}
+            <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-[11px] font-mono text-gray-400 uppercase tracking-widest">
+              <span>PROFICIENCY VERIFIED</span>
+              <span>•</span>
+              <span>MAK PONGASE</span>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </section>
   );

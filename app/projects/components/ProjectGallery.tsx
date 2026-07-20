@@ -11,6 +11,8 @@ interface ProjectGalleryProps {
 export default function ProjectGallery({ images, projectTitle }: ProjectGalleryProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
+  const isVideo = (url: string) => url.toLowerCase().endsWith(".mp4") || url.toLowerCase().endsWith(".webm");
+
   // Handle ESC key to close modal
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -25,7 +27,7 @@ export default function ProjectGallery({ images, projectTitle }: ProjectGalleryP
   return (
     <>
       {/* Gallery Grid */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         {images.map((image, index) => (
           <div
             key={index}
@@ -38,12 +40,23 @@ export default function ProjectGallery({ images, projectTitle }: ProjectGalleryP
             <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-gray-300 z-10 group-hover:border-black transition-colors"></div>
             <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-gray-300 z-10 group-hover:border-black transition-colors"></div>
 
-            {/* Gallery Image */}
-            <img
-              src={image}
-              alt={`${projectTitle} - Image ${index + 1}`}
-              className="absolute inset-0 w-full h-full object-cover"
-            />
+            {/* Gallery Media */}
+            {isVideo(image) ? (
+              <video
+                src={image}
+                className="absolute inset-0 w-full h-full object-cover"
+                muted
+                loop
+                autoPlay
+                playsInline
+              />
+            ) : (
+              <img
+                src={image}
+                alt={`${projectTitle} - Image ${index + 1}`}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            )}
 
             {/* Hover overlay */}
             <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity"></div>
@@ -133,11 +146,20 @@ export default function ProjectGallery({ images, projectTitle }: ProjectGalleryP
 
               {/* Image Content */}
               <div className="relative flex-1 flex items-center justify-center bg-white p-4 overflow-hidden">
-                <img
-                  src={images[selectedImage]}
-                  alt={`${projectTitle} - Image ${selectedImage + 1}`}
-                  className="max-w-full max-h-full object-contain"
-                />
+                {isVideo(images[selectedImage]) ? (
+                  <video
+                    src={images[selectedImage]}
+                    className="max-w-full max-h-full object-contain shadow-md"
+                    controls
+                    autoPlay
+                  />
+                ) : (
+                  <img
+                    src={images[selectedImage]}
+                    alt={`${projectTitle} - Image ${selectedImage + 1}`}
+                    className="max-w-full max-h-full object-contain shadow-md"
+                  />
+                )}
               </div>
 
               {/* Window Footer */}

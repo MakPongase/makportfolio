@@ -6,23 +6,21 @@ import Certificates from "./components/Certificates";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import SectionDivider from "./components/SectionDivider";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white">
       <Navbar />
-      <Hero />
-      <Introduction />
-      <SectionDivider />
-      <About />
-      <SectionDivider />
-      <Certificates />
-      <SectionDivider />
-      <Skills />
-      <SectionDivider />
-      <Contact />
-      <Footer />
-    </main>
+      {/* Main content wrapper with padding on desktop for fixed left vertical sidebar (`md:pl-20`) */}
+      <main className="md:pl-20 transition-all duration-300">
+        <Hero />
+        <Introduction />
+        <About />
+        <Certificates />
+        <Skills />
+        <Contact />
+        <Footer />
+      </main>
+    </div>
   );
 }
