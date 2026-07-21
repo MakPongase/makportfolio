@@ -22,139 +22,126 @@ export default function Hero({
     let animationFrameId: number;
     let time = 0;
 
-    const cols = 50;
-    const rows = 16;
+    const cols = 56;
+    const rows = 20;
+    const aspect = 2.1; // Adjust for monospace char height vs width
 
     const render = () => {
-      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.06;
-      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.06;
+      // Smooth interpolation towards mouse position
+      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.08;
+      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.08;
 
-      time += 0.016;
-
-      const A = time * 0.7 + mouseRef.current.y * 0.5;
-      const B = time * 0.5 + mouseRef.current.x * 0.5;
-      const C = time * 0.3;
+      time += 0.02;
 
       const buffer: string[] = new Array(cols * rows).fill(" ");
       const zBuffer: number[] = new Array(cols * rows).fill(-Infinity);
 
+      const R = 1.6; // Sphere radius
+      const distance = 4.2;
+
+      // Axial tilt (~23.5 deg = 0.41 rad) + mouse Y rotation
+      const rotX = 0.41 + mouseRef.current.y * 1.2;
+      // Continuous background spin (screensaver mode) + mouse X panning (interactive mode)
+      const rotY = time * 0.6 + mouseRef.current.x * 2.5;
+
+      // Light vector coming from top-left-front
+      const lx = -0.577;
+      const ly = -0.577;
+      const lz = -0.577;
+
+      const chars = ["·", ".", ",", "-", "~", ":", ";", "=", "+", "*", "#", "%", "@"];
+
       const project = (x: number, y: number, z: number, char: string) => {
-        // Rotate X
-        let y1 = y * Math.cos(A) - z * Math.sin(A);
-        let z1 = y * Math.sin(A) + z * Math.cos(A);
-        // Rotate Y
-        let x2 = x * Math.cos(B) + z1 * Math.sin(B);
-        let z2 = -x * Math.sin(B) + z1 * Math.cos(B);
-        // Rotate Z
-        let x3 = x2 * Math.cos(C) - y1 * Math.sin(C);
-        let y3 = x2 * Math.sin(C) + y1 * Math.cos(C);
+        // Rotate X (axial tilt)
+        const y1 = y * Math.cos(rotX) - z * Math.sin(rotX);
+        const z1 = y * Math.sin(rotX) + z * Math.cos(rotX);
+        // Rotate Y (globe spin)
+        const x2 = x * Math.cos(rotY) + z1 * Math.sin(rotY);
+        const z2 = -x * Math.sin(rotY) + z1 * Math.cos(rotY);
+
+        const x3 = x2;
+        const y3 = y1;
         const z3 = z2;
 
-        const distance = 4.5;
-        const ooz = 1 / (z3 + distance);
-        const px = Math.floor(cols / 2 + x3 * ooz * 38);
-        const py = Math.floor(rows / 2 + y3 * ooz * 16);
+        // Only draw points facing camera (or slightly around edge for rim light)
+        if (z3 < 0.2) {
+          const ooz = 1 / (z3 + distance);
+          const px = Math.floor(cols / 2 + x3 * aspect * ooz * 16);
+          const py = Math.floor(rows / 2 + y3 * ooz * 16);
 
-        const idx = px + py * cols;
-        if (px >= 0 && px < cols && py >= 0 && py < rows) {
-          if (ooz > zBuffer[idx]) {
-            zBuffer[idx] = ooz;
-            buffer[idx] = char;
+          const idx = px + py * cols;
+          if (px >= 0 && px < cols && py >= 0 && py < rows) {
+            if (ooz > zBuffer[idx]) {
+              zBuffer[idx] = ooz;
+              buffer[idx] = char;
+            }
           }
         }
       };
 
-      const drawLine = (
-        x1: number, y1: number, z1: number,
-        x2: number, y2: number, z2: number,
-        char: string, steps = 20
-      ) => {
-        for (let i = 0; i <= steps; i++) {
-          const t = i / steps;
-          project(
-            x1 + (x2 - x1) * t,
-            y1 + (y2 - y1) * t,
-            z1 + (z2 - z1) * t,
-            char
-          );
-        }
-      };
+      // 1. Render dense sphere surface with illumination shading (like adamsky/globe volumetric mode)
+      for (let lat = -85; lat <= 85; lat += 5) {
+        const radLat = (lat * Math.PI) / 180;
+        const cosLat = Math.cos(radLat);
+        const sinLat = Math.sin(radLat);
 
-      // ─── ICOSAHEDRON (Golden Ratio Polyhedron) ───
-      const phi = (1 + Math.sqrt(5)) / 2;
-      const sc = 0.82;
-      const iv: number[][] = [
-        [0, sc, sc*phi], [0, -sc, sc*phi], [0, sc, -sc*phi], [0, -sc, -sc*phi],
-        [sc, sc*phi, 0], [-sc, sc*phi, 0], [sc, -sc*phi, 0], [-sc, -sc*phi, 0],
-        [sc*phi, 0, sc], [-sc*phi, 0, sc], [sc*phi, 0, -sc], [-sc*phi, 0, -sc],
-      ];
-      const ie: number[][] = [
-        [0,1],[0,4],[0,5],[0,8],[0,9],
-        [1,6],[1,7],[1,8],[1,9],
-        [2,3],[2,4],[2,5],[2,10],[2,11],
-        [3,6],[3,7],[3,10],[3,11],
-        [4,5],[4,8],[4,10],
-        [5,9],[5,11],
-        [6,7],[6,8],[6,10],
-        [7,9],[7,11],
-        [8,10],[9,11],
-      ];
-      ie.forEach(([a, b]) =>
-        drawLine(iv[a][0], iv[a][1], iv[a][2], iv[b][0], iv[b][1], iv[b][2], "#", 22)
-      );
-      // Vertex markers
-      iv.forEach(([vx, vy, vz]) => project(vx, vy, vz, "@"));
+        // Adjust longitude step based on latitude so poles aren't overly dense
+        const lonStep = Math.max(4, Math.floor(6 / Math.max(0.2, cosLat)));
+        for (let lon = 0; lon < 360; lon += lonStep) {
+          const radLon = (lon * Math.PI) / 180;
+          const x = cosLat * Math.sin(radLon) * R;
+          const y = sinLat * R;
+          const z = cosLat * Math.cos(radLon) * R;
 
-      // ─── DUAL ORBITING PARTICLE RINGS ───
-      const ringN = 40;
-      const ringR = 1.9 + Math.sin(time * 0.8) * 0.25;
-      for (let i = 0; i < ringN; i++) {
-        const a = (i / ringN) * Math.PI * 2 + time * 1.2;
-        project(Math.cos(a) * ringR, Math.sin(a) * 0.12, Math.sin(a) * ringR, "·");
-      }
-      for (let i = 0; i < ringN; i++) {
-        const a = (i / ringN) * Math.PI * 2 - time * 0.9;
-        project(Math.sin(a) * 0.12, Math.cos(a) * ringR, Math.sin(a) * ringR, ":");
-      }
+          // Compute rotated normal to calculate dot product with light source
+          const y1 = y * Math.cos(rotX) - z * Math.sin(rotX);
+          const z1 = y * Math.sin(rotX) + z * Math.cos(rotX);
+          const x2 = x * Math.cos(rotY) + z1 * Math.sin(rotY);
+          const z2 = -x * Math.sin(rotY) + z1 * Math.cos(rotY);
 
-      // ─── FLOATING ORBITAL PARTICLES ───
-      for (let i = 0; i < 18; i++) {
-        const t2 = time * 0.4 + i * 2.39996;
-        const oR = 2.3 + Math.sin(t2 * 1.3 + i) * 0.5;
-        const px = Math.cos(t2 + i * 0.5) * oR * Math.cos(i + time * 0.2);
-        const py = Math.sin(t2 * 0.7 + i) * oR * 0.6;
-        const pz = Math.sin(t2 + i * 0.5) * oR * Math.sin(i + time * 0.2);
-        const chars = ["+", "*", "°", "•"];
-        project(px, py, pz, chars[i % 4]);
-      }
+          const nx = x2 / R;
+          const ny = y1 / R;
+          const nz = z2 / R;
 
-      // ─── PULSING INNER CORE ───
-      const coreR = 0.28 + Math.sin(time * 2.5) * 0.12;
-      for (let i = 0; i < 10; i++) {
-        const theta = (i / 10) * Math.PI * 2;
-        for (let j = 1; j < 8; j++) {
-          const phi2 = (j / 8) * Math.PI;
-          project(
-            Math.sin(phi2) * Math.cos(theta) * coreR,
-            Math.cos(phi2) * coreR,
-            Math.sin(phi2) * Math.sin(theta) * coreR,
-            "█"
-          );
+          // Illumination dot product
+          const dot = -(nx * lx + ny * ly + nz * lz);
+          
+          let charToDraw = " ";
+          if (dot > -0.2) {
+            const charIdx = Math.floor(Math.max(0, Math.min(1, (dot + 0.2) / 1.2)) * (chars.length - 1));
+            charToDraw = chars[charIdx];
+          } else {
+            charToDraw = "·"; // Night side faint outline
+          }
+
+          // Highlight Parallels (every 30 deg) and Meridians (every 30 deg)
+          const isParallel = Math.abs(lat % 30) < 3;
+          const isMeridian = Math.abs(lon % 30) < 3;
+          if (isParallel && isMeridian) {
+            charToDraw = "+";
+          } else if (isParallel || isMeridian) {
+            if (dot > 0.2) charToDraw = "*";
+            else if (dot > -0.1) charToDraw = ":";
+          }
+
+          // Equator highlight
+          if (Math.abs(lat) < 2) {
+            charToDraw = "=";
+          }
+
+          project(x, y, z, charToDraw);
         }
       }
 
-      // ─── CONNECTING TENDRILS (icosahedron → ring) ───
-      const tendrilCount = 6;
-      for (let i = 0; i < tendrilCount; i++) {
-        const tAngle = (i / tendrilCount) * Math.PI * 2 + time * 0.6;
-        const pulse = 0.7 + Math.sin(time * 1.5 + i * 1.2) * 0.3;
-        const endX = Math.cos(tAngle) * ringR * pulse;
-        const endY = Math.sin(tAngle) * 0.4 * pulse;
-        const endZ = Math.sin(tAngle) * ringR * pulse;
-        // Connect from nearest icosahedron vertex
-        const vi = i % iv.length;
-        drawLine(iv[vi][0] * 0.8, iv[vi][1] * 0.8, iv[vi][2] * 0.8, endX, endY, endZ, ".", 12);
-      }
+      // 2. Orbiting Satellite / Camera Target (inspired by globe -sc2)
+      const satAngles = [time * 1.5, -time * 1.2 + 2.0];
+      satAngles.forEach((a, i) => {
+        const satR = R * 1.35;
+        const sx = Math.cos(a) * satR;
+        const sy = Math.sin(a * (i === 0 ? 0.5 : -0.7)) * satR * 0.4;
+        const sz = Math.sin(a) * satR;
+        project(sx, sy, sz, i === 0 ? "O" : "∅");
+      });
 
       let frameStr = "";
       for (let r = 0; r < rows; r++) {
@@ -235,6 +222,15 @@ export default function Hero({
             <pre className="text-black font-mono font-bold text-[10px] sm:text-[11px] leading-[13px] sm:leading-[14px] tracking-tighter text-center">
               {asciiFrame}
             </pre>
+          </div>
+
+          {/* Terminal Mode Status Bar */}
+          <div className="mt-3 flex items-center justify-between w-full max-w-sm text-[10px] font-mono text-gray-400 uppercase tracking-widest">
+            <span>[GLOBE-CLI // v0.2]</span>
+            <span className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>INTERACTIVE MODE</span>
+            </span>
           </div>
         </div>
       </div>
