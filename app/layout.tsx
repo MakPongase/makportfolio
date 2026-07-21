@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://mak-theta.vercel.app"),
   title: "John Mark Pongase (Mak) | Versatile Technologist",
   description: "Portfolio of John Mark Pongase (Mak) - Full-Stack Developer, Game Developer, and Tech Community Leader building ideas across disciplines.",
   keywords: [

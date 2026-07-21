@@ -578,22 +578,22 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       </div>
 
       {/* Editorial Header & Metadata Band */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-12 pt-10 pb-8 border-b border-gray-200">
+      <section className="max-w-7xl mx-auto px-6 sm:px-12 pt-6 pb-6 border-b border-gray-200">
         {/* Dossier Code Label */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-3">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
           <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-gray-400">
             PROJECT DOSSIER // {project.slug.toUpperCase()}
           </span>
-          <div className="flex items-center gap-4 text-xs font-mono text-gray-500">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-mono text-gray-500">
             <span><strong className="text-black">ROLE:</strong> {project.role}</span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span><strong className="text-black">TIMELINE:</strong> {project.year}</span>
           </div>
         </div>
 
         {/* Title & Live Action Button Row */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-black leading-none max-w-4xl">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-black leading-none max-w-4xl">
             {project.title}
           </h1>
 
@@ -619,7 +619,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           {project.techStack.map((tech, index) => (
             <span
               key={index}
-              className="px-2.5 py-1 bg-gray-50 border border-gray-200 text-[11px] font-mono font-semibold text-black"
+              className="px-2 py-1 bg-gray-50 border border-gray-200 text-[10px] font-mono font-semibold text-black"
             >
               {tech}
             </span>
@@ -630,7 +630,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       {/* Main Visual Showcase (Immediate Visual Gratification!) */}
       {project.gallery && project.gallery.length > 0 && (
         <section className="max-w-7xl mx-auto px-6 sm:px-12 py-10 border-b border-gray-200">
-          <div className="w-full bg-gray-100 border border-gray-200 overflow-hidden flex items-center justify-center max-h-[640px] group">
+          <div className="w-full bg-gray-100 border border-gray-200 overflow-hidden flex items-center justify-center max-h-[420px] sm:max-h-[560px] group">
             <img
               src={project.gallery[0]}
               alt={project.title}
