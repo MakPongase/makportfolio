@@ -460,6 +460,30 @@ const projects: Record<string, ProjectData> = {
       "/images/dialylink/Screenshot (879).png",
       "/images/dialylink/Screenshot (880).png"
     ],
+    additionalGalleries: [
+      {
+        title: "Doctor's Portal & Clinical Advisor",
+        description: "Interface walkthrough for doctors and nephrologists, including AI Clinical Advisor patient record summaries, appointment scheduling, and patient triage monitoring.",
+        images: [
+          "/images/dialylink/doctors/Screenshot (1080).png",
+          "/images/dialylink/doctors/Screenshot (1081).png",
+          "/images/dialylink/doctors/Screenshot (1082).png",
+          "/images/dialylink/doctors/Screenshot (1083).png",
+          "/images/dialylink/doctors/Screenshot (1085).png",
+          "/images/dialylink/doctors/Screenshot (1086).png",
+          "/images/dialylink/doctors/Screenshot (1087).png",
+        ],
+      },
+      {
+        title: "Patient Dashboard & Core Platform",
+        description: "Patient interface features including AI symptom triage, health companion chat, and appointment booking workflows.",
+        images: [
+          "/images/dialylink/Screenshot (878).png",
+          "/images/dialylink/Screenshot (879).png",
+          "/images/dialylink/Screenshot (880).png",
+        ],
+      },
+    ],
   },
   "graphic-designing": {
     slug: "graphic-designing",
