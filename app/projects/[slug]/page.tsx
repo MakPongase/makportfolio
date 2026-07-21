@@ -534,16 +534,15 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (project.slug === "graphic-designing") {
     return (
       <main className="min-h-screen bg-white text-black selection:bg-black selection:text-white">
-        <div className="h-20"></div>
-        <div className="border-b border-gray-200 px-6 sm:px-12 py-4 flex items-center justify-between">
-          <Link href="/#about" className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors group">
-            <svg className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="border-b border-gray-200 px-4 sm:px-12 py-3 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <Link href="/#about" className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors group self-start">
+            <svg className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            Back to Portfolio
+            <span>Back to Portfolio</span>
           </Link>
-          <div className="text-xs font-mono uppercase tracking-widest text-gray-400 flex items-center gap-2 sm:gap-3">
-            <span className="text-black font-bold truncate max-w-[180px] sm:max-w-none">{project.category}</span>
+          <div className="text-[11px] sm:text-xs font-mono uppercase tracking-wider sm:tracking-widest text-gray-400 flex flex-wrap items-center gap-2 sm:gap-3">
+            <span className="text-black font-bold">{project.category}</span>
             <span>•</span>
             <span>{project.year}</span>
           </div>
@@ -555,23 +554,20 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   return (
     <main className="min-h-screen bg-white text-black selection:bg-black selection:text-white">
-      {/* Fixed Navbar Spacer */}
-      <div className="h-20"></div>
-
       {/* Top Navigation Bar */}
-      <div className="border-b border-gray-200 px-6 sm:px-12 py-4 flex items-center justify-between">
+      <div className="border-b border-gray-200 px-4 sm:px-12 py-3 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <Link
           href="/#about"
-          className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors group"
+          className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors group self-start"
         >
-          <svg className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          Back to Portfolio
+          <span>Back to Portfolio</span>
         </Link>
 
-        <div className="text-xs font-mono uppercase tracking-widest text-gray-400 flex items-center gap-2 sm:gap-3">
-          <span className="text-black font-bold truncate max-w-[180px] sm:max-w-none">{project.category}</span>
+        <div className="text-[11px] sm:text-xs font-mono uppercase tracking-wider sm:tracking-widest text-gray-400 flex flex-wrap items-center gap-2 sm:gap-3">
+          <span className="text-black font-bold">{project.category}</span>
           <span>•</span>
           <span>{project.year}</span>
         </div>
@@ -655,8 +651,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       {/* Marketing Impact Section */}
       {project.marketingGallery && project.marketingGallery.length > 0 && (
-        <section className="max-w-7xl mx-auto px-6 sm:px-12 py-12 border-b border-gray-200">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+        <section className="max-w-7xl mx-auto px-4 sm:px-12 py-8 sm:py-12 border-b border-gray-200">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-4 mb-6 sm:mb-8">
             <div>
               <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-tight text-black">
                 Marketing Impact & Outreach
@@ -678,8 +674,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       {project.additionalGalleries && project.additionalGalleries.length > 0 && (
         <>
           {project.additionalGalleries.map((gallery, galleryIndex) => (
-            <section key={galleryIndex} className="max-w-7xl mx-auto px-6 sm:px-12 py-12 border-b border-gray-200">
-              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+            <section key={galleryIndex} className="max-w-7xl mx-auto px-4 sm:px-12 py-8 sm:py-12 border-b border-gray-200">
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-4 mb-6 sm:mb-8">
                 <div>
                   <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-tight text-black">
                     {gallery.title}
@@ -703,8 +699,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       {/* Standard Project Gallery (when no additional Galleries) */}
       {!project.additionalGalleries && project.gallery && project.gallery.length > 1 && (
-        <section className="max-w-7xl mx-auto px-6 sm:px-12 py-12 border-b border-gray-200">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+        <section className="max-w-7xl mx-auto px-4 sm:px-12 py-8 sm:py-12 border-b border-gray-200">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-4 mb-6 sm:mb-8">
             <div>
               <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-tight text-black">
                 Project Gallery & Screenshots
