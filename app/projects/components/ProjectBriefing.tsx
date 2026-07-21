@@ -14,7 +14,7 @@ export default function ProjectBriefing({
   achievements,
 }: ProjectBriefingProps) {
   return (
-    <section className="max-w-7xl mx-auto px-6 sm:px-12 py-10 lg:py-16 border-b border-gray-200">
+    <section className="max-w-7xl mx-auto px-4 sm:px-12 py-8 lg:py-16 border-b border-gray-200">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
         
         {/* Left Column: Executive Summary & Highlights */}

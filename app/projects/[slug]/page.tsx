@@ -534,14 +534,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (project.slug === "graphic-designing") {
     return (
       <main className="min-h-screen bg-white text-black selection:bg-black selection:text-white">
-        <div className="border-b border-gray-200 px-4 sm:px-12 py-3 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <Link href="/#about" className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors group self-start">
+        <div className="border-b border-gray-200 px-4 sm:px-12 py-3 sm:py-4 flex items-center justify-between">
+          <Link href="/#about" className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors group">
             <svg className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             <span>Back to Portfolio</span>
           </Link>
-          <div className="text-[11px] sm:text-xs font-mono uppercase tracking-wider sm:tracking-widest text-gray-400 flex flex-wrap items-center gap-2 sm:gap-3">
+          <div className="hidden sm:flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-gray-400">
             <span className="text-black font-bold">{project.category}</span>
             <span>•</span>
             <span>{project.year}</span>
@@ -555,10 +555,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <main className="min-h-screen bg-white text-black selection:bg-black selection:text-white">
       {/* Top Navigation Bar */}
-      <div className="border-b border-gray-200 px-4 sm:px-12 py-3 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <div className="border-b border-gray-200 px-4 sm:px-12 py-3 sm:py-4 flex items-center justify-between">
         <Link
           href="/#about"
-          className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors group self-start"
+          className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors group"
         >
           <svg className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -566,7 +566,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <span>Back to Portfolio</span>
         </Link>
 
-        <div className="text-[11px] sm:text-xs font-mono uppercase tracking-wider sm:tracking-widest text-gray-400 flex flex-wrap items-center gap-2 sm:gap-3">
+        <div className="hidden sm:flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-gray-400">
           <span className="text-black font-bold">{project.category}</span>
           <span>•</span>
           <span>{project.year}</span>
@@ -574,7 +574,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       </div>
 
       {/* Editorial Header & Metadata Band */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-12 pt-6 pb-6 border-b border-gray-200">
+      <section className="max-w-7xl mx-auto px-4 sm:px-12 pt-6 pb-6 border-b border-gray-200">
         {/* Dossier Code Label */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
           <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-gray-400">
@@ -625,7 +625,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       {/* Main Visual Showcase (Immediate Visual Gratification!) */}
       {project.gallery && project.gallery.length > 0 && (
-        <section className="max-w-7xl mx-auto px-6 sm:px-12 py-10 border-b border-gray-200">
+        <section className="max-w-7xl mx-auto px-4 sm:px-12 py-6 sm:py-10 border-b border-gray-200">
           <div className="w-full bg-gray-100 border border-gray-200 overflow-hidden flex items-center justify-center max-h-[420px] sm:max-h-[560px] group">
             <img
               src={project.gallery[0]}
