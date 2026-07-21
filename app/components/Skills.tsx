@@ -121,19 +121,14 @@ export default function Skills({
           >
             <div className="space-y-6">
               {/* Category Header */}
-              <div className="flex items-center justify-between border-b border-gray-200 pb-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono font-bold text-black">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-xs font-mono text-gray-400">/</span>
-                  <h3 className="text-lg sm:text-xl font-bold tracking-tight text-black uppercase">
-                    {category}
-                  </h3>
-                </div>
-                <span className="text-xs font-mono text-gray-400">
-                  [{items.length}]
+              <div className="flex items-center gap-3 border-b border-gray-200 pb-4">
+                <span className="text-xs font-mono font-bold text-black">
+                  {String(index + 1).padStart(2, "0")}
                 </span>
+                <span className="text-xs font-mono text-gray-400">/</span>
+                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-black uppercase">
+                  {category}
+                </h3>
               </div>
 
               {/* Skill Tags */}
@@ -147,13 +142,6 @@ export default function Skills({
                   </div>
                 ))}
               </div>
-            </div>
-
-            {/* Cell Footer */}
-            <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-[11px] font-mono text-gray-400 uppercase tracking-widest">
-              <span>PROFICIENCY VERIFIED</span>
-              <span>•</span>
-              <span>MAK PONGASE</span>
             </div>
           </div>
         ))}
