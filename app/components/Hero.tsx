@@ -22,126 +22,96 @@ export default function Hero({
     let animationFrameId: number;
     let time = 0;
 
-    const cols = 56;
-    const rows = 20;
-    const aspect = 2.1; // Adjust for monospace char height vs width
+    const cols = 64;
+    const rows = 26;
+    const aspect = 2.1;
 
     const render = () => {
-      // Smooth interpolation towards mouse position
       mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.08;
       mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.08;
 
-      time += 0.02;
+      time += 0.025;
 
       const buffer: string[] = new Array(cols * rows).fill(" ");
       const zBuffer: number[] = new Array(cols * rows).fill(-Infinity);
 
-      const R = 1.6; // Sphere radius
-      const distance = 4.2;
+      const A = time * 0.8 + mouseRef.current.y * 1.5;
+      const B = time * 0.6 + mouseRef.current.x * 2.5;
 
-      // Axial tilt (~23.5 deg = 0.41 rad) + mouse Y rotation
-      const rotX = 0.41 + mouseRef.current.y * 1.2;
-      // Continuous background spin (screensaver mode) + mouse X panning (interactive mode)
-      const rotY = time * 0.6 + mouseRef.current.x * 2.5;
+      const distance = 5.0;
+      const R1 = 1.8; // Major radius of torus
+      const R2 = 0.75; // Minor radius of torus
 
-      // Light vector coming from top-left-front
-      const lx = -0.577;
-      const ly = -0.577;
-      const lz = -0.577;
+      const chars = [".", ",", "-", "~", ":", ";", "=", "+", "*", "#", "%", "@"];
 
-      const chars = ["·", ".", ",", "-", "~", ":", ";", "=", "+", "*", "#", "%", "@"];
+      // 1. Render 3D Wireframe Torus
+      for (let theta = 0; theta < Math.PI * 2; theta += 0.07) {
+        const cosTheta = Math.cos(theta);
+        const sinTheta = Math.sin(theta);
 
-      const project = (x: number, y: number, z: number, char: string) => {
-        // Rotate X (axial tilt)
-        const y1 = y * Math.cos(rotX) - z * Math.sin(rotX);
-        const z1 = y * Math.sin(rotX) + z * Math.cos(rotX);
-        // Rotate Y (globe spin)
-        const x2 = x * Math.cos(rotY) + z1 * Math.sin(rotY);
-        const z2 = -x * Math.sin(rotY) + z1 * Math.cos(rotY);
+        for (let phi = 0; phi < Math.PI * 2; phi += 0.07) {
+          const cosPhi = Math.cos(phi);
+          const sinPhi = Math.sin(phi);
 
-        const x3 = x2;
-        const y3 = y1;
-        const z3 = z2;
+          // 3D coordinates before rotation
+          const circleX = R1 + R2 * cosTheta;
+          const circleY = R2 * sinTheta;
+          
+          const x = circleX * (cosPhi * Math.cos(B) + sinPhi * Math.sin(A) * Math.sin(B)) - circleY * Math.cos(A) * Math.sin(B);
+          const y = circleX * (cosPhi * Math.sin(B) - sinPhi * Math.sin(A) * Math.cos(B)) + circleY * Math.cos(A) * Math.cos(B);
+          const z = circleX * (sinPhi * Math.cos(A)) + circleY * Math.sin(A);
 
-        // Only draw points facing camera (or slightly around edge for rim light)
-        if (z3 < 0.2) {
-          const ooz = 1 / (z3 + distance);
-          const px = Math.floor(cols / 2 + x3 * aspect * ooz * 16);
-          const py = Math.floor(rows / 2 + y3 * ooz * 16);
+          const ooz = 1 / (z + distance);
+          const px = Math.floor(cols / 2 + x * aspect * ooz * 14);
+          const py = Math.floor(rows / 2 + y * ooz * 14);
 
           const idx = px + py * cols;
           if (px >= 0 && px < cols && py >= 0 && py < rows) {
             if (ooz > zBuffer[idx]) {
               zBuffer[idx] = ooz;
-              buffer[idx] = char;
+              // Normal calculation for crisp wireframe shading
+              const nx = cosTheta * cosPhi;
+              const ny = cosTheta * sinPhi;
+              const nz = sinTheta;
+              const luminance = nx * 0.7 - ny * 0.7 + nz * 0.2;
+              
+              if (luminance > -0.2) {
+                const charIdx = Math.floor(Math.max(0, Math.min(1, (luminance + 0.2) / 1.2)) * (chars.length - 1));
+                buffer[idx] = chars[charIdx];
+              } else {
+                buffer[idx] = "·";
+              }
             }
           }
         }
-      };
-
-      // 1. Render dense sphere surface with illumination shading (like adamsky/globe volumetric mode)
-      for (let lat = -85; lat <= 85; lat += 5) {
-        const radLat = (lat * Math.PI) / 180;
-        const cosLat = Math.cos(radLat);
-        const sinLat = Math.sin(radLat);
-
-        // Adjust longitude step based on latitude so poles aren't overly dense
-        const lonStep = Math.max(4, Math.floor(6 / Math.max(0.2, cosLat)));
-        for (let lon = 0; lon < 360; lon += lonStep) {
-          const radLon = (lon * Math.PI) / 180;
-          const x = cosLat * Math.sin(radLon) * R;
-          const y = sinLat * R;
-          const z = cosLat * Math.cos(radLon) * R;
-
-          // Compute rotated normal to calculate dot product with light source
-          const y1 = y * Math.cos(rotX) - z * Math.sin(rotX);
-          const z1 = y * Math.sin(rotX) + z * Math.cos(rotX);
-          const x2 = x * Math.cos(rotY) + z1 * Math.sin(rotY);
-          const z2 = -x * Math.sin(rotY) + z1 * Math.cos(rotY);
-
-          const nx = x2 / R;
-          const ny = y1 / R;
-          const nz = z2 / R;
-
-          // Illumination dot product
-          const dot = -(nx * lx + ny * ly + nz * lz);
-          
-          let charToDraw = " ";
-          if (dot > -0.2) {
-            const charIdx = Math.floor(Math.max(0, Math.min(1, (dot + 0.2) / 1.2)) * (chars.length - 1));
-            charToDraw = chars[charIdx];
-          } else {
-            charToDraw = "·"; // Night side faint outline
-          }
-
-          // Highlight Parallels (every 30 deg) and Meridians (every 30 deg)
-          const isParallel = Math.abs(lat % 30) < 3;
-          const isMeridian = Math.abs(lon % 30) < 3;
-          if (isParallel && isMeridian) {
-            charToDraw = "+";
-          } else if (isParallel || isMeridian) {
-            if (dot > 0.2) charToDraw = "*";
-            else if (dot > -0.1) charToDraw = ":";
-          }
-
-          // Equator highlight
-          if (Math.abs(lat) < 2) {
-            charToDraw = "=";
-          }
-
-          project(x, y, z, charToDraw);
-        }
       }
 
-      // 2. Orbiting Satellite / Camera Target (inspired by globe -sc2)
-      const satAngles = [time * 1.5, -time * 1.2 + 2.0];
-      satAngles.forEach((a, i) => {
-        const satR = R * 1.35;
-        const sx = Math.cos(a) * satR;
-        const sy = Math.sin(a * (i === 0 ? 0.5 : -0.7)) * satR * 0.4;
-        const sz = Math.sin(a) * satR;
-        project(sx, sy, sz, i === 0 ? "O" : "∅");
-      });
+      // 2. Orbiting Gyroscope Particle Ring
+      const ringSteps = 48;
+      for (let i = 0; i < ringSteps; i++) {
+        const angle = (i / ringSteps) * Math.PI * 2 + time * 1.2;
+        const rx = Math.cos(angle) * 2.8;
+        const ry = Math.sin(angle) * 2.8 * Math.sin(time * 0.5);
+        const rz = Math.sin(angle) * 2.8 * Math.cos(time * 0.5);
+
+        // Rotate ring with camera angles
+        const y1 = ry * Math.cos(A) - rz * Math.sin(A);
+        const z1 = ry * Math.sin(A) + rz * Math.cos(A);
+        const x2 = rx * Math.cos(B) + z1 * Math.sin(B);
+        const z2 = -rx * Math.sin(B) + z1 * Math.cos(B);
+
+        const ooz = 1 / (z2 + distance);
+        const px = Math.floor(cols / 2 + x2 * aspect * ooz * 14);
+        const py = Math.floor(rows / 2 + y1 * ooz * 14);
+        const idx = px + py * cols;
+
+        if (px >= 0 && px < cols && py >= 0 && py < rows) {
+          if (ooz > zBuffer[idx]) {
+            zBuffer[idx] = ooz;
+            buffer[idx] = i % 4 === 0 ? "O" : "•";
+          }
+        }
+      }
 
       let frameStr = "";
       for (let r = 0; r < rows; r++) {
@@ -201,37 +171,25 @@ export default function Hero({
           </div>
         </div>
 
-        {/* Right Column: Pure 3D ASCII Box */}
-        <div className="lg:col-span-5 px-8 sm:px-12 lg:px-16 py-8 sm:py-10 lg:py-12 flex flex-col justify-center items-center bg-gray-50/50">
-          {/* Pure 3D ASCII Box with Architectural Corner Accents */}
-          <div
-            className="relative border border-black bg-white p-4 sm:p-6 flex items-center justify-center min-h-[240px] cursor-crosshair select-none overflow-hidden"
-            onMouseLeave={() => {
-              mouseRef.current.targetX = 0;
-              mouseRef.current.targetY = 0;
-            }}
-            onMouseMove={handleMouseMove}
-          >
-            {/* Corner Accents */}
-            <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-black"></div>
-            <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-black"></div>
-            <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-black"></div>
-            <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-black"></div>
+        {/* Right Column: Full-Area Black Edge-to-Edge Canvas with White ASCII Art */}
+        <div
+          className="lg:col-span-5 relative bg-black flex items-center justify-center p-6 sm:p-8 min-h-[320px] lg:min-h-full cursor-crosshair select-none overflow-hidden group"
+          onMouseLeave={() => {
+            mouseRef.current.targetX = 0;
+            mouseRef.current.targetY = 0;
+          }}
+          onMouseMove={handleMouseMove}
+        >
+          {/* Subtle Corner Markers in White */}
+          <div className="absolute top-4 left-4 w-3 h-3 border-t border-l border-white/40"></div>
+          <div className="absolute top-4 right-4 w-3 h-3 border-t border-r border-white/40"></div>
+          <div className="absolute bottom-4 left-4 w-3 h-3 border-b border-l border-white/40"></div>
+          <div className="absolute bottom-4 right-4 w-3 h-3 border-b border-r border-white/40"></div>
 
-            {/* Pure 3D ASCII Canvas */}
-            <pre className="text-black font-mono font-bold text-[10px] sm:text-[11px] leading-[13px] sm:leading-[14px] tracking-tighter text-center">
-              {asciiFrame}
-            </pre>
-          </div>
-
-          {/* Terminal Mode Status Bar */}
-          <div className="mt-3 flex items-center justify-between w-full max-w-sm text-[10px] font-mono text-gray-400 uppercase tracking-widest">
-            <span>[GLOBE-CLI // v0.2]</span>
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>INTERACTIVE MODE</span>
-            </span>
-          </div>
+          {/* White ASCII Canvas Utilizing the Entire Column */}
+          <pre className="text-white font-mono font-bold text-[10px] sm:text-[11px] leading-[13px] sm:leading-[14px] tracking-tighter text-center">
+            {asciiFrame}
+          </pre>
         </div>
       </div>
     </section>
