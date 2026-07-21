@@ -21,94 +21,117 @@ export default function Hero({
   useEffect(() => {
     let animationFrameId: number;
     let time = 0;
+    let isMounted = true;
 
     const cols = 64;
     const rows = 26;
     const aspect = 2.1;
+    const radius = 1.8;
+
+    let dayTexture: string[][] | null = null;
+    let nightTexture: string[][] | null = null;
+    const palette = [
+      ' ', '.', ':', ';', '\'', ',', 'w', 'i', 'o', 'g', 'O', 'L', 'X', 'H', 'W', 'Y', 'V', '@'
+    ];
+
+    // Load exact texture maps from adamsky/globe (DinoZ1729)
+    Promise.all([
+      fetch("/images/texture/earth.txt").then((res) => res.text()),
+      fetch("/images/texture/earth_night.txt").then((res) => res.text()),
+    ])
+      .then(([dayText, nightText]) => {
+        if (!isMounted) return;
+        dayTexture = dayText.split("\n").map((line) => line.split("").reverse());
+        nightTexture = nightText.split("\n").map((line) => line.split("").reverse());
+      })
+      .catch((err) => console.error("Could not load earth textures:", err));
 
     const render = () => {
       mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.08;
       mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.08;
 
-      time += 0.025;
+      time += 0.02;
 
       const buffer: string[] = new Array(cols * rows).fill(" ");
-      const zBuffer: number[] = new Array(cols * rows).fill(-Infinity);
+      const camZ = 4.5;
 
-      const A = time * 0.8 + mouseRef.current.y * 1.5;
-      const B = time * 0.6 + mouseRef.current.x * 2.5;
+      // Axial tilt + mouse Y rotation
+      const rotX = 0.41 + mouseRef.current.y * 1.0;
+      // Continuous background spin + mouse X panning
+      const angle = time * 0.4 + mouseRef.current.x * 2.5;
 
-      const distance = 5.0;
-      const R1 = 1.8; // Major radius of torus
-      const R2 = 0.75; // Minor radius of torus
+      // Light source vector
+      const lx = 0.2, ly = 0.8, lz = 0.6;
+      const lLen = Math.sqrt(lx * lx + ly * ly + lz * lz);
+      const nlx = lx / lLen, nly = ly / lLen, nlz = lz / lLen;
 
-      const chars = [".", ",", "-", "~", ":", ";", "=", "+", "*", "#", "%", "@"];
+      for (let yi = 0; yi < rows; yi++) {
+        for (let xi = 0; xi < cols; xi++) {
+          const idx = xi + yi * cols;
 
-      // 1. Render 3D Wireframe Torus
-      for (let theta = 0; theta < Math.PI * 2; theta += 0.07) {
-        const cosTheta = Math.cos(theta);
-        const sinTheta = Math.sin(theta);
+          // Ray direction passing through character cell
+          let ux = ((xi - cols / 2) + 0.5) / (cols / 2);
+          let uy = -((yi - rows / 2) + 0.5) / (rows / 2) * aspect;
+          let uz = -1.0;
+          const uLen = Math.sqrt(ux * ux + uy * uy + uz * uz);
+          ux /= uLen; uy /= uLen; uz /= uLen;
 
-        for (let phi = 0; phi < Math.PI * 2; phi += 0.07) {
-          const cosPhi = Math.cos(phi);
-          const sinPhi = Math.sin(phi);
+          // Intersection quadratic discriminant with sphere at origin [0,0,0]
+          const dot_uo = uz * camZ;
+          const discriminant = dot_uo * dot_uo - (camZ * camZ) + radius * radius;
 
-          // 3D coordinates before rotation
-          const circleX = R1 + R2 * cosTheta;
-          const circleY = R2 * sinTheta;
-          
-          const x = circleX * (cosPhi * Math.cos(B) + sinPhi * Math.sin(A) * Math.sin(B)) - circleY * Math.cos(A) * Math.sin(B);
-          const y = circleX * (cosPhi * Math.sin(B) - sinPhi * Math.sin(A) * Math.cos(B)) + circleY * Math.cos(A) * Math.cos(B);
-          const z = circleX * (sinPhi * Math.cos(A)) + circleY * Math.sin(A);
+          if (discriminant < 0) continue;
 
-          const ooz = 1 / (z + distance);
-          const px = Math.floor(cols / 2 + x * aspect * ooz * 14);
-          const py = Math.floor(rows / 2 + y * ooz * 14);
+          const distance = -Math.sqrt(discriminant) - dot_uo;
+          const ix = distance * ux;
+          const iy = distance * uy;
+          const iz = camZ + distance * uz;
 
-          const idx = px + py * cols;
-          if (px >= 0 && px < cols && py >= 0 && py < rows) {
-            if (ooz > zBuffer[idx]) {
-              zBuffer[idx] = ooz;
-              // Normal calculation for crisp wireframe shading
-              const nx = cosTheta * cosPhi;
-              const ny = cosTheta * sinPhi;
-              const nz = sinTheta;
-              const luminance = nx * 0.7 - ny * 0.7 + nz * 0.2;
-              
-              if (luminance > -0.2) {
-                const charIdx = Math.floor(Math.max(0, Math.min(1, (luminance + 0.2) / 1.2)) * (chars.length - 1));
-                buffer[idx] = chars[charIdx];
-              } else {
-                buffer[idx] = "·";
-              }
+          // Surface normal at intersection
+          const nx = ix / radius;
+          const ny = iy / radius;
+          const nz = iz / radius;
+
+          // Rotate point by axial tilt (rotX) and spin (angle)
+          const y1 = iy * Math.cos(rotX) - iz * Math.sin(rotX);
+          const z1 = iy * Math.sin(rotX) + iz * Math.cos(rotX);
+          const x2 = ix * Math.cos(angle) + z1 * Math.sin(angle);
+
+          // DinoZ1729 spherical coordinates [0, 1]
+          const phi = Math.max(0, Math.min(0.999, -y1 / radius / 2.0 + 0.5));
+          let theta = Math.atan2(y1, x2) / Math.PI + 0.5 + angle / (2 * Math.PI);
+          theta = theta - Math.floor(theta);
+
+          // Luminance based on light dot product
+          const dot_nl = nx * nlx + ny * nly + nz * nlz;
+          const luminance = Math.max(0, Math.min(1, 2.5 * dot_nl + 0.4));
+
+          if (dayTexture && nightTexture && dayTexture.length > 0) {
+            const texY = Math.min(dayTexture.length - 1, Math.floor(phi * dayTexture.length));
+            const texRow = dayTexture[texY] || [];
+            const texX = Math.min(texRow.length - 1, Math.floor(theta * texRow.length));
+
+            const dayChar = texRow[texX] || ' ';
+            const nightChar = nightTexture[texY]?.[texX] || ' ';
+            const dayIdx = palette.indexOf(dayChar);
+            const nightIdx = palette.indexOf(nightChar);
+
+            if (dayIdx !== -1 && nightIdx !== -1) {
+              let blendIdx = Math.floor((1.0 - luminance) * nightIdx + luminance * dayIdx);
+              blendIdx = Math.max(0, Math.min(palette.length - 1, blendIdx));
+              buffer[idx] = palette[blendIdx];
+            } else {
+              buffer[idx] = luminance > 0.2 ? dayChar : '·';
             }
-          }
-        }
-      }
-
-      // 2. Orbiting Gyroscope Particle Ring
-      const ringSteps = 48;
-      for (let i = 0; i < ringSteps; i++) {
-        const angle = (i / ringSteps) * Math.PI * 2 + time * 1.2;
-        const rx = Math.cos(angle) * 2.8;
-        const ry = Math.sin(angle) * 2.8 * Math.sin(time * 0.5);
-        const rz = Math.sin(angle) * 2.8 * Math.cos(time * 0.5);
-
-        // Rotate ring with camera angles
-        const y1 = ry * Math.cos(A) - rz * Math.sin(A);
-        const z1 = ry * Math.sin(A) + rz * Math.cos(A);
-        const x2 = rx * Math.cos(B) + z1 * Math.sin(B);
-        const z2 = -rx * Math.sin(B) + z1 * Math.cos(B);
-
-        const ooz = 1 / (z2 + distance);
-        const px = Math.floor(cols / 2 + x2 * aspect * ooz * 14);
-        const py = Math.floor(rows / 2 + y1 * ooz * 14);
-        const idx = px + py * cols;
-
-        if (px >= 0 && px < cols && py >= 0 && py < rows) {
-          if (ooz > zBuffer[idx]) {
-            zBuffer[idx] = ooz;
-            buffer[idx] = i % 4 === 0 ? "O" : "•";
+          } else {
+            // Fallback before texture loads
+            const fallbackChars = [".", ":", ";", "=", "+", "*", "#", "%", "@"];
+            if (luminance > 0.1) {
+              const charIdx = Math.floor(luminance * (fallbackChars.length - 1));
+              buffer[idx] = fallbackChars[charIdx];
+            } else {
+              buffer[idx] = "·";
+            }
           }
         }
       }
@@ -123,7 +146,10 @@ export default function Hero({
     };
 
     animationFrameId = requestAnimationFrame(render);
-    return () => cancelAnimationFrame(animationFrameId);
+    return () => {
+      isMounted = false;
+      cancelAnimationFrame(animationFrameId);
+    };
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
