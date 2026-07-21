@@ -45,16 +45,26 @@ export default function About({
     },
     {
       number: "03",
-      category: "FULL-STACK DEVELOPMENT",
-      title: "CONSTRUCTION PMS & BIZWISE",
+      category: "AI & BUSINESS SYSTEMS",
+      title: "CONSTRUCTION PMS",
       description:
-        "Enterprise full-stack platforms: an AI-enhanced Construction Project Management System with supplier bidding, and BizWise—an intelligent service marketplace automating workflows for MSMEs.",
+        "An AI-enhanced Construction Project Management System featuring competitive supplier bidding, real-time BOQ pricing, generative AI report generation, and equipment location tracking.",
       badges: ["REACT", "NODE.JS", "POSTGRESQL", "FIREBASE"],
       slug: "construction-pms",
       imageUrl: "/images/gallery/fullstack/construction-pms/pms-image1.png",
     },
     {
       number: "04",
+      category: "AI & BUSINESS SYSTEMS",
+      title: "BIZWISE",
+      description:
+        "An AI-integrated service marketplace and business management platform for MSMEs. Automates booking-to-ledger workflows with predictive cash flow analytics and revenue insights.",
+      badges: ["REACT NATIVE", "NODE.JS", "FIREBASE", "AI ANALYTICS"],
+      slug: "bizwise",
+      imageUrl: "/images/gallery/fullstack/bizwise/bizwise-logo.png",
+    },
+    {
+      number: "05",
       category: "ORGANIZATIONAL LEADERSHIP",
       title: "LIT ENTERTAINMENT",
       description:
@@ -64,7 +74,7 @@ export default function About({
       imageUrl: "/images/esports-tournament/lit-ent-main-display.png",
     },
     {
-      number: "05",
+      number: "06",
       category: "GAME DEVELOPMENT",
       title: "ECOTIDE ADVENTURES",
       description:
@@ -74,8 +84,8 @@ export default function About({
       imageUrl: "/images/gallery/ecotide/ecotide-image1.png",
     },
     {
-      number: "06",
-      category: "3D DIGITAL TWIN",
+      number: "07",
+      category: "ROBLOX EXPERIENCE",
       title: "BULLDOGS TAMBAYAN",
       description:
         "An immersive 3D recreation of the NU Baliwag campus in Roblox Studio. Served as a high-impact digital twin and student hangout, attracting 3,000+ visitors in week one.",
@@ -84,7 +94,17 @@ export default function About({
       imageUrl: "/images/gallery/roblox/roblox-main-display.jpg",
     },
     {
-      number: "07",
+      number: "08",
+      category: "ROBLOX EXPERIENCE",
+      title: "BLOX NATIONAL HIGHSCHOOL",
+      description:
+        "An authentic 3D digital recreation of a Philippine National High School campus in Roblox Studio. Designed as a nostalgic, semi-realistic immersion and social hangout ('tambayan') where students connect during and after online classes.",
+      badges: ["ROBLOX STUDIO", "LUA", "3D MODELING", "DIGITAL TWIN"],
+      slug: "blox-national-highschool",
+      imageUrl: "/images/BloxNationalHighschool/Screenshot (1022).png",
+    },
+    {
+      number: "09",
       category: "PUBLIC SPEAKING",
       title: "SPEAKER & EDUCATOR",
       description:
@@ -94,7 +114,7 @@ export default function About({
       imageUrl: "/images/gallery/speakership/speakership-main-image.jpg",
     },
     {
-      number: "08",
+      number: "10",
       category: "INTUITIVE GUIDANCE",
       title: "WISDOM OF CARDS",
       description:
@@ -104,8 +124,8 @@ export default function About({
       imageUrl: "/images/gallery/tarot-readings/tarot-reading-main-display.png",
     },
     {
-      number: "09",
-      category: "CREATIVE & BRANDING",
+      number: "11",
+      category: "VISUAL DESIGN",
       title: "GRAPHIC DESIGN PORTFOLIO",
       description:
         "Brand identity packages, marketing materials for LessonPlanner, and mascot rebranding initiatives—a curated showcase of visual design across multiple industries.",

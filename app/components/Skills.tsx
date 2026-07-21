@@ -38,7 +38,7 @@ export default function Skills({
       "AWS Cloud",
       "Docker",
     ],
-    "Game & 3D Development": ["Roblox Studio", "Lua", "GameMaker", "3D Modeling"],
+    "Interactive Development": ["Roblox Studio", "Lua", "GameMaker", "3D Modeling"],
   };
 
   const tools = {
@@ -49,11 +49,14 @@ export default function Skills({
       "Chrome DevTools",
       "Figma",
     ],
-    "AI-Assisted Engineering": [
-      "ChatGPT",
+    "AI Tools": [
       "Claude",
-      "GitHub Copilot",
-      "Gemini AI",
+      "Gemini",
+      "ChatGPT",
+      "Cursor IDE",
+      "ElevenLabs",
+      "Leonardo AI",
+      "Higgsfield",
     ],
     "Productivity & Agile": [
       "Microsoft Office",

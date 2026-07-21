@@ -49,7 +49,7 @@ export default function Footer({
               {name}
             </h3>
             <p className="text-xs font-mono uppercase tracking-wider text-gray-400 leading-relaxed">
-              Full-Stack Software Engineer, Cloud Club Captain, and Architectural Thinker.
+              Full-Stack Developer building across AI, cloud, games, and digital experiences.
             </p>
           </div>
           <div className="text-xs font-mono text-gray-600 uppercase">
@@ -142,8 +142,7 @@ export default function Footer({
           © {currentYear} {name}. ALL RIGHTS RESERVED.
         </p>
         <div className="flex items-center gap-6">
-          <span>ARCHITECTURAL GRID DESIGN</span>
-          <span>•</span>
+
           <a href="#home" className="hover:text-white transition-colors">
             TOP ↑
           </a>

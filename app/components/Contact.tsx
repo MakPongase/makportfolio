@@ -127,7 +127,7 @@ export default function Contact({
               Direct Contact
             </div>
             <p className="text-lg text-gray-700 leading-relaxed font-normal">
-              Have a project inquiry, speaking invitation, or simply want to connect about cloud architecture or full-stack systems? Feel free to reach out directly.
+              Interested in collaborating, building something exciting, or inviting me to speak? I&apos;d love to hear from you.
             </p>
 
             <div className="divide-y divide-gray-200 border-t border-b border-gray-200">

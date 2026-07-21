@@ -15,7 +15,7 @@ export default function Introduction({
   title = "WHY I DO WHAT I DO",
   quote = "Versatility isn't doing everything—it's having the depth to lead, the skill to build, and the wisdom to connect diverse domains.",
   story = [
-    "I am a full-stack engineer and community leader driven by the challenge of turning complex ideas into impactful systems. From architecting scalable web platforms and leading a team of 100+ cloud builders, to conducting holistic counseling—my core mission is empowering people through thoughtful technology and high empathy.",
+    "I enjoy solving complex problems through technology, design, and collaboration. Whether building AI-powered applications, developing games, leading technical communities, or mentoring students, I believe meaningful technology starts with understanding people first.",
   ],
   imageUrl = "/images/about-me/mak-pongase-main-picture.png",
   imageAlt = "John Mark Pongase",
@@ -56,7 +56,6 @@ export default function Introduction({
 
             <div className="mt-3 pt-2 border-t border-gray-200 flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-gray-600">
               <span>JOHN MARK PONGASE</span>
-              <span>• BULACAN, PH</span>
             </div>
           </div>
         </div>
@@ -81,18 +80,22 @@ export default function Introduction({
           </div>
 
           {/* Bottom stats/indicators row */}
-          <div className="grid grid-cols-3 border-t border-gray-200 pt-6 gap-4 text-center sm:text-left">
+          <div className="grid grid-cols-2 sm:grid-cols-4 border-t border-gray-200 pt-6 gap-6 sm:gap-4 text-center sm:text-left">
             <div>
-              <div className="text-xl sm:text-2xl font-bold font-mono text-black">100+</div>
-              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Cloud Builders</div>
+              <div className="text-xl sm:text-2xl font-bold font-mono text-black">10+</div>
+              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Projects Built</div>
             </div>
             <div className="border-l border-gray-200 pl-4">
-              <div className="text-xl sm:text-2xl font-bold font-mono text-black">200+</div>
-              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Clients Guided</div>
+              <div className="text-xl sm:text-2xl font-bold font-mono text-black">100+</div>
+              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Community Members Led</div>
+            </div>
+            <div className="border-l border-gray-200 pl-4">
+              <div className="text-xl sm:text-2xl font-bold font-mono text-black">6+</div>
+              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Talks & Workshops Delivered</div>
             </div>
             <div className="border-l border-gray-200 pl-4">
               <div className="text-xl sm:text-2xl font-bold font-mono text-black">3K+</div>
-              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Roblox Visitors</div>
+              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Players Reached</div>
             </div>
           </div>
         </div>

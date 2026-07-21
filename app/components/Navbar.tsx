@@ -69,11 +69,11 @@ export default function Navbar({
   return (
     <>
       {/* DESKTOP FIXED LEFT VERTICAL SIDEBAR STRIP */}
-      <aside className={`hidden md:flex flex-col justify-between items-center fixed top-0 left-0 bottom-0 w-20 border-r border-gray-200 bg-white z-50 py-8 select-none ${className}`}>
+      <aside className={`hidden md:flex flex-col justify-between items-center fixed top-0 left-0 bottom-0 w-20 border-r border-gray-800 bg-black text-white z-50 py-8 select-none ${className}`}>
         {/* Top: Vertical Rotated Logo */}
         <Link
           href="#home"
-          className="text-xs font-bold tracking-[0.25em] uppercase text-black hover:text-gray-500 transition-colors py-4"
+          className="text-xs font-bold tracking-[0.25em] uppercase text-white hover:text-gray-400 transition-colors py-4"
           style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
         >
           {logo}
@@ -85,14 +85,14 @@ export default function Navbar({
             <Link
               key={item.href}
               href={item.href}
-              className="group relative w-12 h-12 flex items-center justify-center border border-transparent hover:border-black text-gray-600 hover:text-black hover:bg-gray-50 transition-all duration-300"
+              className="group relative w-12 h-12 flex items-center justify-center border border-transparent hover:border-gray-700 text-gray-400 hover:text-white hover:bg-gray-900 transition-all duration-300"
               aria-label={item.label}
             >
               {renderIcon(item.icon)}
 
               {/* Tooltip on Hover */}
-              <span className="absolute left-full ml-4 px-3 py-2 bg-black text-white text-[11px] font-mono uppercase tracking-widest whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 shadow-md">
-                <span className="text-gray-400 mr-2">{String(index + 1).padStart(2, "0")}</span>
+              <span className="absolute left-full ml-4 px-3 py-2 bg-white text-black border border-gray-200 text-[11px] font-mono font-bold uppercase tracking-widest whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 shadow-xl">
+                <span className="text-gray-500 mr-2">{String(index + 1).padStart(2, "0")}</span>
                 {item.label}
               </span>
             </Link>
@@ -101,7 +101,7 @@ export default function Navbar({
 
         {/* Bottom: Vertical Rotated EST. 2024 */}
         <div
-          className="text-[10px] font-mono tracking-widest text-gray-400 uppercase py-4"
+          className="text-[10px] font-mono tracking-widest text-gray-500 uppercase py-4"
           style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
         >
           EST. 2024
@@ -109,9 +109,9 @@ export default function Navbar({
       </aside>
 
       {/* MOBILE TOP sticky header bar */}
-      <nav className={`md:hidden fixed top-0 left-0 right-0 h-16 border-b border-gray-200 bg-white/95 backdrop-blur-md z-50 px-6 flex items-center justify-between ${className}`}>
+      <nav className={`md:hidden fixed top-0 left-0 right-0 h-16 border-b border-gray-800 bg-black/95 backdrop-blur-md z-50 px-6 flex items-center justify-between text-white ${className}`}>
         {/* Logo */}
-        <Link href="/" className="text-base font-bold tracking-[0.15em] uppercase text-black">
+        <Link href="/" className="text-base font-bold tracking-[0.15em] uppercase text-white">
           {logo}
         </Link>
 
@@ -121,22 +121,22 @@ export default function Navbar({
           className="w-10 h-10 flex flex-col justify-center items-center gap-1.5 focus:outline-none"
           aria-label="Toggle menu"
         >
-          <span className={`w-6 h-px bg-black transition-transform duration-300 ${isMenuOpen ? "rotate-45 translate-y-2" : ""}`}></span>
-          <span className={`w-6 h-px bg-black transition-opacity duration-300 ${isMenuOpen ? "opacity-0" : "opacity-100"}`}></span>
-          <span className={`w-6 h-px bg-black transition-transform duration-300 ${isMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}></span>
+          <span className={`w-6 h-px bg-white transition-transform duration-300 ${isMenuOpen ? "rotate-45 translate-y-2" : ""}`}></span>
+          <span className={`w-6 h-px bg-white transition-opacity duration-300 ${isMenuOpen ? "opacity-0" : "opacity-100"}`}></span>
+          <span className={`w-6 h-px bg-white transition-transform duration-300 ${isMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}></span>
         </button>
 
         {/* Mobile Dropdown Menu */}
         {isMenuOpen && (
-          <div className="absolute top-16 left-0 right-0 bg-white border-b border-gray-200 shadow-xl py-6 px-6 space-y-1 animate-in slide-in-from-top duration-300">
+          <div className="absolute top-16 left-0 right-0 bg-black border-b border-gray-800 shadow-2xl py-6 px-6 space-y-1 animate-in slide-in-from-top duration-300">
             {navItems.map((item, index) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-4 py-3 border-b border-gray-100 last:border-none text-black hover:text-gray-600 transition-colors"
+                className="flex items-center gap-4 py-3 border-b border-gray-900 last:border-none text-white hover:text-gray-400 transition-colors"
               >
-                <span className="text-xs font-mono text-gray-400">{String(index + 1).padStart(2, "0")}</span>
+                <span className="text-xs font-mono text-gray-500">{String(index + 1).padStart(2, "0")}</span>
                 <span className="text-sm font-bold uppercase tracking-wider">{item.label}</span>
               </Link>
             ))}
