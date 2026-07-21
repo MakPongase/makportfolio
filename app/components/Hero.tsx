@@ -23,10 +23,8 @@ export default function Hero({
     let time = 0;
     let isMounted = true;
 
-    const cols = 64;
-    const rows = 26;
-    const aspect = 2.1;
-    const radius = 1.8;
+    const cols = 56;
+    const rows = 28;
 
     let dayTexture: string[][] | null = null;
     let nightTexture: string[][] | null = null;
@@ -34,7 +32,6 @@ export default function Hero({
       ' ', '.', ':', ';', '\'', ',', 'w', 'i', 'o', 'g', 'O', 'L', 'X', 'H', 'W', 'Y', 'V', '@'
     ];
 
-    // Load exact texture maps from adamsky/globe (DinoZ1729)
     Promise.all([
       fetch("/images/texture/earth.txt").then((res) => res.text()),
       fetch("/images/texture/earth_night.txt").then((res) => res.text()),
@@ -53,57 +50,54 @@ export default function Hero({
       time += 0.02;
 
       const buffer: string[] = new Array(cols * rows).fill(" ");
-      const camZ = 4.5;
 
-      // Axial tilt + mouse Y rotation
-      const rotX = 0.41 + mouseRef.current.y * 1.0;
-      // Continuous background spin + mouse X panning
+      // Globe fills the canvas — scale so the sphere nearly reaches the edges
+      // scaleX/scaleY map [-1,1] world coords to screen cell coords
+      const scaleX = cols / 2.1;   // horizontal: sphere edge at cols/2 ± scaleX
+      const scaleY = rows / 2.1;   // vertical: sphere edge at rows/2 ± scaleY
+
       const angle = time * 0.4 + mouseRef.current.x * 2.5;
+      const rotX  = 0.41 + mouseRef.current.y * 1.0;
 
-      // Light source vector
-      const lx = 0.2, ly = 0.8, lz = 0.6;
-      const lLen = Math.sqrt(lx * lx + ly * ly + lz * lz);
-      const nlx = lx / lLen, nly = ly / lLen, nlz = lz / lLen;
+      // Light from upper-left
+      const nlx = -0.5, nly = -0.8, nlz = -0.3;
+      const llen = Math.sqrt(nlx*nlx + nly*nly + nlz*nlz);
+      const lx = nlx/llen, ly = nly/llen, lz = nlz/llen;
 
       for (let yi = 0; yi < rows; yi++) {
         for (let xi = 0; xi < cols; xi++) {
           const idx = xi + yi * cols;
 
-          // Ray direction passing through character cell
-          let ux = ((xi - cols / 2) + 0.5) / (cols / 2);
-          let uy = -((yi - rows / 2) + 0.5) / (rows / 2) * aspect;
-          let uz = -1.0;
-          const uLen = Math.sqrt(ux * ux + uy * uy + uz * uz);
-          ux /= uLen; uy /= uLen; uz /= uLen;
+          // Normalised screen coords [-1, 1]
+          const sx = (xi - cols / 2 + 0.5) / scaleX;
+          const sy = (yi - rows / 2 + 0.5) / scaleY;
 
-          // Intersection quadratic discriminant with sphere at origin [0,0,0]
-          const dot_uo = uz * camZ;
-          const discriminant = dot_uo * dot_uo - (camZ * camZ) + radius * radius;
+          // Ray-sphere intersection (orthographic projection, camera at z = -∞)
+          const r2 = sx * sx + sy * sy;
+          if (r2 > 1.0) continue;  // outside the globe disk
 
-          if (discriminant < 0) continue;
+          const sz = Math.sqrt(1.0 - r2);  // front hemisphere z on the unit sphere
 
-          const distance = -Math.sqrt(discriminant) - dot_uo;
-          const ix = distance * ux;
-          const iy = distance * uy;
-          const iz = camZ + distance * uz;
+          // Surface point on sphere of radius 1 (we use unit sphere, texture maps directly)
+          let px = sx, py = sy, pz = sz;
 
-          // Surface normal at intersection
-          const nx = ix / radius;
-          const ny = iy / radius;
-          const nz = iz / radius;
+          // Rotate X (axial tilt + mouse)
+          const py1 = py * Math.cos(rotX) - pz * Math.sin(rotX);
+          const pz1 = py * Math.sin(rotX) + pz * Math.cos(rotX);
 
-          // Rotate point by axial tilt (rotX) and spin (angle)
-          const y1 = iy * Math.cos(rotX) - iz * Math.sin(rotX);
-          const z1 = iy * Math.sin(rotX) + iz * Math.cos(rotX);
-          const x2 = ix * Math.cos(angle) + z1 * Math.sin(angle);
+          // Rotate Y (spin + mouse)
+          const px2 =  px * Math.cos(angle) + pz1 * Math.sin(angle);
+          const py2 = py1;
+          const pz2 = -px * Math.sin(angle) + pz1 * Math.cos(angle);
 
-          // DinoZ1729 spherical coordinates [0, 1]
-          const phi = Math.max(0, Math.min(0.999, -y1 / radius / 2.0 + 0.5));
-          let theta = Math.atan2(y1, x2) / Math.PI + 0.5 + angle / (2 * Math.PI);
+          // Spherical coordinates → texture UV
+          const phi   = Math.max(0, Math.min(0.999, -py2 / 2.0 + 0.5));
+          let   theta = Math.atan2(py2, px2) / Math.PI + 0.5 + angle / (2 * Math.PI);
           theta = theta - Math.floor(theta);
 
-          // Luminance based on light dot product
-          const dot_nl = nx * nlx + ny * nly + nz * nlz;
+          // Surface normal (same as unit sphere point before rotation for lighting)
+          // Use the un-rotated normal for consistent lighting
+          const dot_nl = -(sx * lx + sy * ly + sz * lz);
           const luminance = Math.max(0, Math.min(1, 2.5 * dot_nl + 0.4));
 
           if (dayTexture && nightTexture && dayTexture.length > 0) {
@@ -111,10 +105,10 @@ export default function Hero({
             const texRow = dayTexture[texY] || [];
             const texX = Math.min(texRow.length - 1, Math.floor(theta * texRow.length));
 
-            const dayChar = texRow[texX] || ' ';
+            const dayChar   = texRow[texX] || ' ';
             const nightChar = nightTexture[texY]?.[texX] || ' ';
-            const dayIdx = palette.indexOf(dayChar);
-            const nightIdx = palette.indexOf(nightChar);
+            const dayIdx    = palette.indexOf(dayChar);
+            const nightIdx  = palette.indexOf(nightChar);
 
             if (dayIdx !== -1 && nightIdx !== -1) {
               let blendIdx = Math.floor((1.0 - luminance) * nightIdx + luminance * dayIdx);
@@ -124,7 +118,6 @@ export default function Hero({
               buffer[idx] = luminance > 0.2 ? dayChar : '·';
             }
           } else {
-            // Fallback before texture loads
             const fallbackChars = [".", ":", ";", "=", "+", "*", "#", "%", "@"];
             if (luminance > 0.1) {
               const charIdx = Math.floor(luminance * (fallbackChars.length - 1));
