@@ -543,6 +543,18 @@ const projects: Record<string, ProjectData> = {
           "/images/Graphic Designing/ARKDEV/Portrait (4).png",
         ],
       },
+      {
+        title: "AWS Cloud Clubs PH Marketing & Design",
+        description: "Official promotional graphics, event announcements, and community branding assets developed for AWS Cloud Clubs Philippines.",
+        images: [
+          "/images/Graphic Designing/awsph/1.jpg",
+          "/images/Graphic Designing/awsph/2.jpg",
+          "/images/Graphic Designing/awsph/3.jpg",
+          "/images/Graphic Designing/awsph/4.jpg",
+          "/images/Graphic Designing/awsph/5.jpg",
+          "/images/Graphic Designing/awsph/6.jpg",
+        ],
+      },
     ],
   },
 };
