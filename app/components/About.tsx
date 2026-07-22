@@ -151,9 +151,10 @@ export default function About({
       {/* Stacked Project List Grid matching Screenshot 2 */}
       <div className="divide-y divide-gray-200">
         {works.map((work, index) => (
-          <div
+          <Link
             key={index}
-            className="grid grid-cols-1 lg:grid-cols-12 transition-colors hover:bg-gray-50/40 group"
+            href={`/projects/${work.slug}`}
+            className="grid grid-cols-1 lg:grid-cols-12 transition-colors hover:bg-gray-50/70 group cursor-pointer block"
           >
             {/* Left Column: Details, Badges, and View Details Button */}
             <div className="lg:col-span-7 p-8 sm:p-12 lg:p-16 lg:border-r border-b lg:border-b-0 border-gray-200 flex flex-col justify-between gap-10">
@@ -167,9 +168,7 @@ export default function About({
 
                 {/* Title */}
                 <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-black group-hover:translate-x-1.5 transition-transform duration-300">
-                  <Link href={`/projects/${work.slug}`} className="hover:text-gray-700 transition-colors">
-                    {work.title}
-                  </Link>
+                  {work.title}
                 </h3>
 
                 {/* Description */}
@@ -193,37 +192,31 @@ export default function About({
                 </div>
 
                 {/* VIEW DETAILS Link */}
-                <Link
-                  href={`/projects/${work.slug}`}
-                  className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-[0.2em] text-black hover:text-gray-600 transition-colors whitespace-nowrap self-start sm:self-auto group/btn"
-                >
+                <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-[0.2em] text-black group-hover:text-gray-600 transition-colors whitespace-nowrap self-start sm:self-auto">
                   <span>VIEW DETAILS</span>
-                  <span className="transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-0.5">
+                  <span className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-0.5">
                     ↗
                   </span>
-                </Link>
+                </div>
               </div>
             </div>
 
             {/* Right Column: Preview Mockup Card */}
-            <div className="lg:col-span-5 bg-gray-50/60 p-8 sm:p-12 lg:p-16 flex items-center justify-center relative min-h-[300px] lg:min-h-full overflow-hidden">
-              <Link
-                href={`/projects/${work.slug}`}
-                className="block w-full h-full relative group/img cursor-pointer"
-              >
+            <div className="lg:col-span-5 bg-gray-50/60 group-hover:bg-gray-100/60 transition-colors p-8 sm:p-12 lg:p-16 flex items-center justify-center relative min-h-[300px] lg:min-h-full overflow-hidden">
+              <div className="w-full h-full relative">
                 {/* Frame border */}
                 <div className="relative w-full aspect-[16/10] bg-white border border-gray-300 shadow-xs overflow-hidden">
                   <img
                     src={work.imageUrl}
                     alt={work.title}
-                    className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 group-hover/img:scale-105 transition-all duration-700 ease-out"
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
                   />
                   {/* Subtle overlay */}
-                  <div className="absolute inset-0 bg-black/5 group-hover/img:bg-transparent transition-colors duration-300"></div>
+                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-300"></div>
                 </div>
-              </Link>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>
