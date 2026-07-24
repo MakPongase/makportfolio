@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { createPortal } from "react-dom";
+import ScrollReveal from "./ScrollReveal";
 
 export interface CertificateItem {
   title: string;

@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import ScrollReveal from "./ScrollReveal";
+import AnimatedCounter from "./AnimatedCounter";
 
 interface IntroductionProps {
   title?: string;
@@ -37,67 +39,83 @@ export default function Introduction({
       <div className="grid grid-cols-1 lg:grid-cols-12">
         {/* Left Column: Framed Portrait */}
         <div className="lg:col-span-4 p-6 sm:p-8 lg:p-10 lg:border-r border-b lg:border-b-0 border-gray-200 bg-gray-50/50 flex flex-col items-center justify-center">
-          <div className="relative w-full max-w-[280px] border border-black bg-white p-3 shadow-xs">
-            {/* Corner Accents */}
-            <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-black -translate-x-1 -translate-y-1"></div>
-            <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-black translate-x-1 -translate-y-1"></div>
-            <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-black -translate-x-1 translate-y-1"></div>
-            <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-black translate-x-1 translate-y-1"></div>
+          <ScrollReveal yOffset={20}>
+            <div className="relative w-full max-w-[280px] border border-black bg-white p-3 shadow-xs">
+              {/* Corner Accents */}
+              <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-black -translate-x-1 -translate-y-1"></div>
+              <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-black translate-x-1 -translate-y-1"></div>
+              <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-black -translate-x-1 translate-y-1"></div>
+              <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-black translate-x-1 translate-y-1"></div>
 
-            <div className="relative aspect-[4/5] w-full overflow-hidden bg-gray-100 border border-gray-200">
-              <Image
-                src={imageUrl}
-                alt={imageAlt}
-                fill
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out"
-                sizes="(max-width: 768px) 100vw, 280px"
-              />
-            </div>
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-gray-100 border border-gray-200">
+                <Image
+                  src={imageUrl}
+                  alt={imageAlt}
+                  fill
+                  className="object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out"
+                  sizes="(max-width: 768px) 100vw, 280px"
+                />
+              </div>
 
-            <div className="mt-3 pt-2 border-t border-gray-200 flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-gray-600">
-              <span>JOHN MARK PONGASE</span>
+              <div className="mt-3 pt-2 border-t border-gray-200 flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-gray-600">
+                <span>JOHN MARK PONGASE</span>
+              </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
 
         {/* Right Column: Quote & Story */}
         <div className="lg:col-span-8 p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-8">
-          {/* Quote Block */}
-          <div className="space-y-3">
-            <div className="text-[10px] font-mono uppercase tracking-[0.25em] text-gray-400">
-              Core Philosophy
+          <ScrollReveal delay={0.1}>
+            {/* Quote Block */}
+            <div className="space-y-3">
+              <div className="text-[10px] font-mono uppercase tracking-[0.25em] text-gray-400">
+                Core Philosophy
+              </div>
+              <blockquote className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-black leading-snug">
+                &ldquo;{quote}&rdquo;
+              </blockquote>
             </div>
-            <blockquote className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-black leading-snug">
-              &ldquo;{quote}&rdquo;
-            </blockquote>
-          </div>
+          </ScrollReveal>
 
           {/* Story Paragraphs */}
-          <div className="border-t border-gray-200 pt-6 space-y-4 text-sm sm:text-base text-gray-700 leading-relaxed font-normal">
-            {story.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
-          </div>
+          <ScrollReveal delay={0.15}>
+            <div className="border-t border-gray-200 pt-6 space-y-4 text-sm sm:text-base text-gray-700 leading-relaxed font-normal">
+              {story.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
+          </ScrollReveal>
 
-          {/* Bottom stats/indicators row */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 border-t border-gray-200 pt-6 gap-6 sm:gap-4 text-center sm:text-left">
-            <div>
-              <div className="text-xl sm:text-2xl font-bold font-mono text-black">10+</div>
-              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Projects Built</div>
+          {/* Bottom stats/indicators row with Animated Counters */}
+          <ScrollReveal delay={0.2}>
+            <div className="grid grid-cols-2 sm:grid-cols-4 border-t border-gray-200 pt-6 gap-6 sm:gap-4 text-center sm:text-left">
+              <div>
+                <div className="text-xl sm:text-2xl font-bold font-mono text-black">
+                  <AnimatedCounter value="10+" />
+                </div>
+                <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Projects Built</div>
+              </div>
+              <div className="border-l border-gray-200 pl-4">
+                <div className="text-xl sm:text-2xl font-bold font-mono text-black">
+                  <AnimatedCounter value="100+" />
+                </div>
+                <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Community Members Led</div>
+              </div>
+              <div className="border-l border-gray-200 pl-4">
+                <div className="text-xl sm:text-2xl font-bold font-mono text-black">
+                  <AnimatedCounter value="6+" />
+                </div>
+                <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Talks & Workshops Delivered</div>
+              </div>
+              <div className="border-l border-gray-200 pl-4">
+                <div className="text-xl sm:text-2xl font-bold font-mono text-black">
+                  <AnimatedCounter value="3K+" />
+                </div>
+                <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Players Reached</div>
+              </div>
             </div>
-            <div className="border-l border-gray-200 pl-4">
-              <div className="text-xl sm:text-2xl font-bold font-mono text-black">100+</div>
-              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Community Members Led</div>
-            </div>
-            <div className="border-l border-gray-200 pl-4">
-              <div className="text-xl sm:text-2xl font-bold font-mono text-black">6+</div>
-              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Talks & Workshops Delivered</div>
-            </div>
-            <div className="border-l border-gray-200 pl-4">
-              <div className="text-xl sm:text-2xl font-bold font-mono text-black">3K+</div>
-              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-gray-500 mt-1">Players Reached</div>
-            </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>
