@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import ScrollReveal from "./ScrollReveal";
 
 interface SkillsProps {
   title?: string;
@@ -116,36 +115,35 @@ export default function Skills({
       {/* Grid of Category Cells */}
       <div className="grid grid-cols-1 md:grid-cols-2">
         {Object.entries(displayData).map(([category, items], index) => (
-          <ScrollReveal key={index} delay={index * 0.05}>
-            <div
-              className="border-r border-b border-gray-200 p-8 sm:p-12 flex flex-col justify-between gap-8 group hover:bg-gray-50/40 transition-colors h-full"
-            >
-              <div className="space-y-6">
-                {/* Category Header */}
-                <div className="flex items-center gap-3 border-b border-gray-200 pb-4">
-                  <span className="text-xs font-mono font-bold text-black">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-xs font-mono text-gray-400">/</span>
-                  <h3 className="text-lg sm:text-xl font-bold tracking-tight text-black uppercase">
-                    {category}
-                  </h3>
-                </div>
+          <div
+            key={index}
+            className="border-r border-b border-gray-200 p-8 sm:p-12 flex flex-col justify-between gap-8 group hover:bg-gray-50/40 transition-colors"
+          >
+            <div className="space-y-6">
+              {/* Category Header */}
+              <div className="flex items-center gap-3 border-b border-gray-200 pb-4">
+                <span className="text-xs font-mono font-bold text-black">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="text-xs font-mono text-gray-400">/</span>
+                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-black uppercase">
+                  {category}
+                </h3>
+              </div>
 
-                {/* Skill Tags */}
-                <div className="flex flex-wrap gap-2.5 pt-2">
-                  {items.map((item, iIndex) => (
-                    <div
-                      key={iIndex}
-                      className="px-4 py-2 bg-white border border-gray-300 text-xs font-mono font-medium text-gray-800 uppercase tracking-wider group-hover:border-black transition-colors"
-                    >
-                      {item}
-                    </div>
-                  ))}
-                </div>
+              {/* Skill Tags */}
+              <div className="flex flex-wrap gap-2.5 pt-2">
+                {items.map((item, iIndex) => (
+                  <div
+                    key={iIndex}
+                    className="px-4 py-2 bg-white border border-gray-300 text-xs font-mono font-medium text-gray-800 uppercase tracking-wider group-hover:border-black transition-colors"
+                  >
+                    {item}
+                  </div>
+                ))}
               </div>
             </div>
-          </ScrollReveal>
+          </div>
         ))}
       </div>
     </section>

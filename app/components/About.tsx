@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import ScrollReveal from "./ScrollReveal";
 
 interface WorkItem {
   number: string;
@@ -99,38 +98,38 @@ export default function About({
       category: "ROBLOX EXPERIENCE",
       title: "BLOX NATIONAL HIGHSCHOOL",
       description:
-        "Authentic Philippine public high school virtual campus in Roblox Studio. Recreated open corridors, classrooms, and social hangout spots ('tambayan') for student immersion.",
-      badges: ["ROBLOX STUDIO", "3D MODELING", "LUA", "ENVIRONMENT DESIGN"],
+        "An authentic 3D digital recreation of a Philippine National High School campus in Roblox Studio. Designed as a nostalgic, semi-realistic immersion and social hangout ('tambayan') where students connect during and after online classes.",
+      badges: ["ROBLOX STUDIO", "LUA", "3D MODELING", "DIGITAL TWIN"],
       slug: "blox-national-highschool",
       imageUrl: "/images/BloxNationalHighschool/Screenshot (1022).png",
     },
     {
       number: "09",
-      category: "WORKSHOPS & PUBLIC SPEAKING",
+      category: "PUBLIC SPEAKING",
       title: "SPEAKER & EDUCATOR",
       description:
-        "Delivered talks on leadership ('When Does Someday Come?') at Gordon College and led hands-on full-stack web development & Git/GitHub workshops for 100+ students.",
+        "Delivered keynote talks and technical bootcamps at events like the Gordon College AWS gathering and WebCamp—empowering students with Web Dev, IDE tools, and Git/GitHub workflows.",
       badges: ["PUBLIC SPEAKING", "WORKSHOPS", "GIT/GITHUB", "WEB DEV"],
       slug: "speaker-educator",
       imageUrl: "/images/gallery/speakership/speakership-main-image.jpg",
     },
     {
       number: "10",
-      category: "TAROT READER",
+      category: "INTUITIVE GUIDANCE",
       title: "WISDOM OF CARDS",
       description:
-        "Delivered 200+ mindful tarot readings and spearheaded Opening Week Tarot booth operation (80+ readings in 2 days), blending intuitive listening with strategic clarity.",
-      badges: ["CONSULTATION", "ACTIVE LISTENING", "EVENT OPERATOR"],
+        "Over 200 personalized tarot consultations, offering empathetic guidance and strategic clarity to help clients navigate life complexities and make confident decisions.",
+      badges: ["CONSULTATION", "ACTIVE LISTENING", "GUIDANCE"],
       slug: "tarot-consultations",
       imageUrl: "/images/gallery/tarot-readings/tarot-reading-main-display.png",
     },
     {
       number: "11",
-      category: "CREATIVE & BRANDING",
-      title: "GRAPHIC DESIGNING",
+      category: "VISUAL DESIGN",
+      title: "GRAPHIC DESIGN PORTFOLIO",
       description:
-        "Comprehensive brand identity, mascot rebranding, social media assets, and merchandise design showcase for GDSC NU Baliwag, Meister Spud, and LessonPlanner.",
-      badges: ["ILLUSTRATOR", "PHOTOSHOP", "BRANDING", "MERCHANDISE"],
+        "Brand identity packages, marketing materials for LessonPlanner, and mascot rebranding initiatives—a curated showcase of visual design across multiple industries.",
+      badges: ["ILLUSTRATOR", "PHOTOSHOP", "BRAND IDENTITY", "SOCIAL MEDIA"],
       slug: "graphic-designing",
       imageUrl: "/images/Graphic Designing/meister_spud-potatobusiness/Meister Spud - POSTER 1.png",
     },
@@ -152,75 +151,76 @@ export default function About({
       {/* Stacked Project List Grid matching Screenshot 2 */}
       <div className="divide-y divide-gray-200">
         {works.map((work, index) => (
-          <ScrollReveal key={index} yOffset={20}>
-            <Link
-              href={`/projects/${work.slug}`}
-              className="grid grid-cols-1 lg:grid-cols-12 transition-colors hover:bg-gray-50/70 group cursor-pointer block"
-            >
-              {/* Left Column: Details, Badges, and View Details Button */}
-              <div className="lg:col-span-7 p-8 sm:p-12 lg:p-16 lg:border-r border-b lg:border-b-0 border-gray-200 flex flex-col justify-between gap-10">
-                <div className="space-y-6">
-                  {/* Number / Category */}
-                  <div className="text-xs font-mono uppercase tracking-[0.25em] text-gray-500 flex items-center gap-3">
-                    <span className="font-bold text-black">{work.number}</span>
-                    <span>/</span>
-                    <span>{work.category}</span>
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-black group-hover:translate-x-1.5 transition-transform duration-300">
-                    {work.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-2xl">
-                    {work.description}
-                  </p>
+          <Link
+            key={index}
+            href={`/projects/${work.slug}`}
+            className="grid grid-cols-1 lg:grid-cols-12 transition-colors hover:bg-gray-50/70 group cursor-pointer block"
+          >
+            {/* Left Column: Details, Badges, and View Details Button */}
+            <div className="lg:col-span-7 p-8 sm:p-12 lg:p-16 lg:border-r border-b lg:border-b-0 border-gray-200 flex flex-col justify-between gap-10">
+              <div className="space-y-6">
+                {/* Number / Category */}
+                <div className="text-xs font-mono uppercase tracking-[0.25em] text-gray-500 flex items-center gap-3">
+                  <span className="font-bold text-black">{work.number}</span>
+                  <span>/</span>
+                  <span>{work.category}</span>
                 </div>
 
-                {/* Bottom Row: Tech Badges and View Details Button */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-4">
-                  {/* Boxed Badges */}
-                  <div className="flex flex-wrap gap-2">
-                    {work.badges.map((badge, bIndex) => (
-                      <span
-                        key={bIndex}
-                        className="px-3 py-1.5 bg-white border border-gray-300 text-[11px] font-mono font-medium text-gray-800 uppercase tracking-wider"
-                      >
-                        {badge}
-                      </span>
-                    ))}
-                  </div>
+                {/* Title */}
+                <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-black group-hover:translate-x-1.5 transition-transform duration-300">
+                  {work.title}
+                </h3>
 
-                  {/* VIEW DETAILS Link */}
-                  <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-[0.2em] text-black group-hover:text-gray-600 transition-colors whitespace-nowrap self-start sm:self-auto">
-                    <span>VIEW DETAILS</span>
-                    <span className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-0.5">
-                      ↗
+                {/* Description */}
+                <p className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-2xl">
+                  {work.description}
+                </p>
+              </div>
+
+              {/* Bottom Row: Tech Badges and View Details Button */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-4">
+                {/* Boxed Badges */}
+                <div className="flex flex-wrap gap-2">
+                  {work.badges.map((badge, bIndex) => (
+                    <span
+                      key={bIndex}
+                      className="px-3 py-1.5 bg-white border border-gray-300 text-[11px] font-mono font-medium text-gray-800 uppercase tracking-wider"
+                    >
+                      {badge}
                     </span>
-                  </div>
+                  ))}
                 </div>
-              </div>
 
-              {/* Right Column: Preview Mockup Card */}
-              <div className="lg:col-span-5 bg-gray-50/60 group-hover:bg-gray-100/60 transition-colors p-8 sm:p-12 lg:p-16 flex items-center justify-center relative min-h-[300px] lg:min-h-full overflow-hidden">
-                <div className="w-full h-full relative">
-                  {/* Frame border */}
-                  <div className="relative w-full aspect-[16/10] bg-white border border-gray-300 shadow-xs overflow-hidden">
-                    <img
-                      src={work.imageUrl}
-                      alt={work.title}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
-                    />
-                    {/* Subtle overlay */}
-                    <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-300"></div>
-                  </div>
+                {/* VIEW DETAILS Link */}
+                <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-[0.2em] text-black group-hover:text-gray-600 transition-colors whitespace-nowrap self-start sm:self-auto">
+                  <span>VIEW DETAILS</span>
+                  <span className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-0.5">
+                    ↗
+                  </span>
                 </div>
               </div>
-            </Link>
-          </ScrollReveal>
+            </div>
+
+            {/* Right Column: Preview Mockup Card */}
+            <div className="lg:col-span-5 bg-gray-50/60 group-hover:bg-gray-100/60 transition-colors p-8 sm:p-12 lg:p-16 flex items-center justify-center relative min-h-[300px] lg:min-h-full overflow-hidden">
+              <div className="w-full h-full relative">
+                {/* Frame border */}
+                <div className="relative w-full aspect-[16/10] bg-white border border-gray-300 shadow-xs overflow-hidden">
+                  <img
+                    src={work.imageUrl}
+                    alt={work.title}
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                  />
+                  {/* Subtle overlay */}
+                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-300"></div>
+                </div>
+              </div>
+            </div>
+          </Link>
         ))}
       </div>
     </section>
   );
 }
+
+
