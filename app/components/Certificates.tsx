@@ -4,14 +4,15 @@ import { useState } from "react";
 import Image from "next/image";
 import { createPortal } from "react-dom";
 
-interface CertificateItem {
+export interface CertificateItem {
   title: string;
   issuer: string;
   imageUrl: string;
   badge?: string;
+  category?: string;
 }
 
-interface AchievementItem {
+export interface AchievementItem {
   title: string;
   issuer: string;
   badge: string;
@@ -24,77 +25,194 @@ interface CertificatesProps {
   className?: string;
 }
 
+const defaultCertificates: CertificateItem[] = [
+  {
+    title: "Claude 101 Certificate",
+    issuer: "Anthropic",
+    imageUrl: "/images/certificates/anthropic-claude-101.png",
+    badge: "AI Certification",
+    category: "AI & Tech",
+  },
+  {
+    title: "TOPCIT Level 3 Competency Certificate",
+    issuer: "IITP / ICT Competency Assessment",
+    imageUrl: "/images/certificates/topcit-level-3.png",
+    badge: "Level 3 High Proficiency",
+    category: "Competency & Language",
+  },
+  {
+    title: "Google UX Design Certificate",
+    issuer: "Google / Coursera",
+    imageUrl: "/images/certificates/google-ux-design.png",
+    badge: "UX / UI Design",
+    category: "Data & UX",
+  },
+  {
+    title: "AWS Cloud Club Captain — Diamond Tier",
+    issuer: "Amazon Web Services (AWS)",
+    imageUrl: "/images/certificates/aws-captain-diamond.png",
+    badge: "Diamond Tier",
+    category: "Cloud & AWS",
+  },
+  {
+    title: "AWS Cloud Club Captain — Platinum Tier",
+    issuer: "Amazon Web Services (AWS)",
+    imageUrl: "/images/certificates/aws-captain-platinum.png",
+    badge: "Platinum Tier",
+    category: "Cloud & AWS",
+  },
+  {
+    title: "AWS Cloud Club Captain — Gold Tier",
+    issuer: "Amazon Web Services (AWS)",
+    imageUrl: "/images/certificates/aws-captain-gold.png",
+    badge: "Gold Tier",
+    category: "Cloud & AWS",
+  },
+  {
+    title: "AWS Cloud Club Captain — Silver Tier",
+    issuer: "Amazon Web Services (AWS)",
+    imageUrl: "/images/certificates/aws-captain-silver.png",
+    badge: "Silver Tier",
+    category: "Cloud & AWS",
+  },
+  {
+    title: "AWS Cloud Club Captain — Bronze Tier",
+    issuer: "Amazon Web Services (AWS)",
+    imageUrl: "/images/certificates/aws-captain-bronze.png",
+    badge: "Bronze Tier",
+    category: "Cloud & AWS",
+  },
+  {
+    title: "AWS Cloud Club Captain Designation",
+    issuer: "Amazon Web Services (AWS)",
+    imageUrl: "/images/certificates/aws-captain.png",
+    badge: "Leadership",
+    category: "Cloud & AWS",
+  },
+  {
+    title: "Google Project Management Specialization",
+    issuer: "Google / Coursera",
+    imageUrl: "/images/certificates/google-project-management.jpg",
+    badge: "Specialization",
+    category: "Project Management",
+  },
+  {
+    title: "Foundations of Project Management",
+    issuer: "Google / Coursera",
+    imageUrl: "/images/certificates/foundations.jpg",
+    badge: "Google Cert",
+    category: "Project Management",
+  },
+  {
+    title: "Project Initiation: Starting a Successful Project",
+    issuer: "Google / Coursera",
+    imageUrl: "/images/certificates/google-pm-initiation.jpg",
+    badge: "Google Cert",
+    category: "Project Management",
+  },
+  {
+    title: "Project Planning: Putting It All Together",
+    issuer: "Google / Coursera",
+    imageUrl: "/images/certificates/google-pm-planning.jpg",
+    badge: "Google Cert",
+    category: "Project Management",
+  },
+  {
+    title: "Project Execution: Running the Project",
+    issuer: "Google / Coursera",
+    imageUrl: "/images/certificates/google-pm-execution.jpg",
+    badge: "Google Cert",
+    category: "Project Management",
+  },
+  {
+    title: "Agile Project Management",
+    issuer: "Google / Coursera",
+    imageUrl: "/images/certificates/agile-project-management.jpg",
+    badge: "Google Cert",
+    category: "Project Management",
+  },
+  {
+    title: "Foundations: Data, Data, Everywhere",
+    issuer: "Google / Coursera",
+    imageUrl: "/images/certificates/data-analyst-foundational.jpg",
+    badge: "Data Analytics",
+    category: "Data & UX",
+  },
+  {
+    title: "Ask Questions to Make Data-Driven Decisions",
+    issuer: "Google / Coursera",
+    imageUrl: "/images/certificates/data-analyst-ask-questions.jpg",
+    badge: "Data Analytics",
+    category: "Data & UX",
+  },
+  {
+    title: "Prepare Data for Exploration",
+    issuer: "Google / Coursera",
+    imageUrl: "/images/certificates/google-data-prepare-data.jpg",
+    badge: "Data Analytics",
+    category: "Data & UX",
+  },
+  {
+    title: "EF SET English Certificate (C2 Proficient)",
+    issuer: "EF Standard English Test",
+    imageUrl: "/images/certificates/ef-set-certificate.jpg",
+    badge: "C2 Proficient",
+    category: "Competency & Language",
+  },
+  {
+    title: "Front-End Web Development Bootcamp",
+    issuer: "TechEdu / Udemy",
+    imageUrl: "/images/certificates/web-developer-bootcamp.jpg",
+    badge: "Web Dev",
+    category: "AI & Tech",
+  },
+];
+
+const defaultAchievements: AchievementItem[] = [
+  {
+    title: "AWS Cloud Club NU Baliwag",
+    issuer: "Amazon Web Services",
+    badge: "Captain",
+  },
+  {
+    title: "AWS Student Community Day North — Head Organizer",
+    issuer: "AWS User Group Philippines",
+    badge: "Head Organizer",
+  },
+  {
+    title: "Volunteer Marketing Director",
+    issuer: "AWS Cloud Clubs Philippines",
+    badge: "Volunteer",
+  },
+  {
+    title: "Kasadyahan 2024 Esports Tournament — Lead Organizer",
+    issuer: "Lit Entertainment",
+    badge: "Lead Organizer",
+  },
+];
+
 export default function Certificates({
   title = "CERTIFICATIONS & ACHIEVEMENTS",
-  certificates = [
-    {
-      title: "Foundations of Project Management",
-      issuer: "Google / Coursera",
-      imageUrl: "/images/certificates/foundations.jpg",
-      badge: "Verified",
-    },
-    {
-      title: "Google Project Management: Foundations",
-      issuer: "Google / Coursera",
-      imageUrl: "/images/certificates/google-project-management.jpg",
-      badge: "Verified",
-    },
-    {
-      title: "Agile Project Management",
-      issuer: "Google / Coursera",
-      imageUrl: "/images/certificates/agile-project-management.jpg",
-      badge: "Verified",
-    },
-    {
-      title: "Foundations: Data, Data, Everywhere",
-      issuer: "Google / Coursera",
-      imageUrl: "/images/certificates/data-analyst-foundational.jpg",
-      badge: "Verified",
-    },
-    {
-      title: "Ask Questions to Make Data-Driven Decisions",
-      issuer: "Google / Coursera",
-      imageUrl: "/images/certificates/data-analyst-ask-questions.jpg",
-      badge: "Verified",
-    },
-    {
-      title: "Front-End Web Development Bootcamp",
-      issuer: "TechEdu / Udemy",
-      imageUrl: "/images/certificates/web-developer-bootcamp.jpg",
-      badge: "Verified",
-    },
-    {
-      title: "EF SET English Certificate (C2 Proficient)",
-      issuer: "EF Standard English Test",
-      imageUrl: "/images/certificates/ef-set-certificate.jpg",
-      badge: "C2 Proficient",
-    },
-  ],
-  achievements = [
-    {
-      title: "AWS Cloud Club NU Baliwag",
-      issuer: "Amazon Web Services",
-      badge: "Captain",
-    },
-    {
-      title: "AWS Student Community Day North — Head Organizer",
-      issuer: "AWS User Group Philippines",
-      badge: "Head Organizer",
-    },
-    {
-      title: "Volunteer Marketing Director",
-      issuer: "AWS Cloud Clubs Philippines",
-      badge: "Volunteer",
-    },
-    {
-      title: "Kasadyahan 2024 Esports Tournament — Lead Organizer",
-      issuer: "Lit Entertainment",
-      badge: "Lead Organizer",
-    },
-  ],
+  certificates = defaultCertificates,
+  achievements = defaultAchievements,
   className = "",
 }: CertificatesProps) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string>("ALL");
+
+  const categories = [
+    "ALL",
+    "Cloud & AWS",
+    "Project Management",
+    "Data & UX",
+    "AI & Tech",
+    "Competency & Language",
+  ];
+
+  const filteredCertificates =
+    activeCategory === "ALL"
+      ? certificates
+      : certificates.filter((c) => c.category === activeCategory);
 
   return (
     <section id="certificates" className={`relative bg-white text-black border-b border-gray-200 ${className}`}>
@@ -108,19 +226,50 @@ export default function Certificates({
         </span>
       </div>
 
-      {/* ─── CERTIFICATIONS GRID ─── */}
-      <div className="border-b border-gray-200 px-8 sm:px-12 lg:px-16 py-4 bg-gray-50/50">
-        <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-gray-500">
-          Certifications
-        </span>
+      {/* ─── CERTIFICATIONS HEADER & TABS ─── */}
+      <div className="border-b border-gray-200 px-8 sm:px-12 lg:px-16 py-6 bg-gray-50/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-gray-500">
+            Certifications
+          </span>
+          <span className="text-xs font-mono text-gray-400 font-bold">
+            [{filteredCertificates.length} OF {certificates.length}]
+          </span>
+        </div>
+
+        {/* Category Filter Buttons */}
+        <div className="flex flex-wrap gap-2">
+          {categories.map((cat) => {
+            const count =
+              cat === "ALL"
+                ? certificates.length
+                : certificates.filter((c) => c.category === cat).length;
+            const isActive = activeCategory === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-3 py-1.5 text-[11px] font-mono font-semibold uppercase tracking-wider transition-all border ${
+                  isActive
+                    ? "bg-black text-white border-black"
+                    : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100 hover:text-black"
+                }`}
+              >
+                {cat} ({count})
+              </button>
+            );
+          })}
+        </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {certificates.map((cert, index) => (
+
+      {/* ─── CERTIFICATIONS GRID ─── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 divide-y md:divide-y-0 border-b border-gray-200">
+        {filteredCertificates.map((cert, index) => (
           <div
             key={index}
-            className="border-r border-b border-gray-200 p-8 sm:p-10 flex flex-col justify-between gap-6 group hover:bg-gray-50/40 transition-colors"
+            className="border-r border-b border-gray-200 p-6 sm:p-8 flex flex-col justify-between gap-6 group hover:bg-gray-50/60 transition-colors"
           >
-            <div className="space-y-5">
+            <div className="space-y-4">
               {/* Image Preview Box */}
               <div
                 onClick={() => setSelectedImage(cert.imageUrl)}
@@ -134,7 +283,7 @@ export default function Certificates({
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 {cert.badge && (
-                  <span className="absolute top-3 right-3 px-2.5 py-1 bg-black text-white text-[10px] font-mono uppercase tracking-wider z-10">
+                  <span className="absolute top-3 right-3 px-2.5 py-1 bg-black text-white text-[10px] font-mono uppercase tracking-wider z-10 shadow-xs">
                     {cert.badge}
                   </span>
                 )}
@@ -147,22 +296,26 @@ export default function Certificates({
 
               {/* Title and Issuer */}
               <div className="space-y-1.5">
-                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-black group-hover:text-gray-600 transition-colors leading-tight">
+                <h3 className="text-base sm:text-lg font-bold tracking-tight text-black group-hover:text-gray-700 transition-colors leading-snug">
                   {cert.title}
                 </h3>
-                <p className="text-sm font-mono uppercase tracking-wider text-gray-500">
+                <p className="text-xs font-mono uppercase tracking-wider text-gray-500">
                   {cert.issuer}
                 </p>
               </div>
             </div>
 
             {/* Action Footer */}
-            <div className="pt-4 border-t border-gray-200">
+            <div className="pt-4 border-t border-gray-200 flex items-center justify-between">
+              <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest">
+                {cert.category}
+              </span>
               <button
                 onClick={() => setSelectedImage(cert.imageUrl)}
-                className="text-xs font-mono font-bold uppercase tracking-widest text-black hover:underline"
+                className="text-xs font-mono font-bold uppercase tracking-widest text-black hover:underline flex items-center gap-1"
               >
-                VIEW IMAGE ↗
+                <span>VIEW</span>
+                <span>↗</span>
               </button>
             </div>
           </div>
@@ -235,3 +388,4 @@ export default function Certificates({
     </section>
   );
 }
+
