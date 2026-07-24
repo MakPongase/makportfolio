@@ -18,7 +18,9 @@ export interface CertificateItem {
 export interface AchievementItem {
   title: string;
   issuer: string;
+  period?: string;
   badge: string;
+  points?: string[];
 }
 
 interface CertificatesProps {
@@ -250,24 +252,87 @@ const defaultCertificates: CertificateItem[] = [
 
 const defaultAchievements: AchievementItem[] = [
   {
-    title: "AWS Cloud Club NU Baliwag",
+    title: "AWS Cloud Clubs – NU Baliwag",
     issuer: "Amazon Web Services",
-    badge: "Captain",
+    period: "Feb 2025 – Feb 2026",
+    badge: "Captain — Diamond Badge",
+    points: [
+      "Mentored members and drove technology education across the university.",
+      "Designed and led workshops in collaboration with professors, attracting 40+ attendees per workshop.",
+      "Implemented beginner-friendly learning modules introducing non-technical students to digital tools.",
+    ],
   },
   {
-    title: "AWS Student Community Day North — Head Organizer",
+    title: "AWS Student Community Day North 2025",
     issuer: "AWS User Group Philippines",
+    period: "2025",
     badge: "Head Organizer",
+    points: [
+      "Led end-to-end planning and execution of a one-day student tech conference ('Trailblaze and Empower Cloud Leaders').",
+      "Coordinated program flow, speakers, logistics, promotions, and campus partnerships.",
+      "Inspired the creation of a new AWS learning club by students in Bulacan.",
+    ],
   },
   {
-    title: "Volunteer Marketing Director",
+    title: "AWS Cloud Clubs Philippines",
     issuer: "AWS Cloud Clubs Philippines",
-    badge: "Volunteer",
+    period: "Dec 2025 – May 2026",
+    badge: "Director for Marketing",
+    points: [
+      "Led merchandise initiatives and national marketing efforts, ensuring consistent branding across nationwide chapters.",
+      "Supervised content, creatives, and campaign strategies for nationwide events.",
+    ],
   },
   {
-    title: "Kasadyahan 2024 Esports Tournament — Lead Organizer",
-    issuer: "Lit Entertainment",
-    badge: "Lead Organizer",
+    title: "Symph",
+    issuer: "Symph",
+    period: "Feb 2026 – May 2026",
+    badge: "Marketing Automation Intern",
+    points: [
+      "Designed and automated marketing pipelines covering lead capture, validation, scoring, routing, and lifecycle progression.",
+      "Partnered with marketing, sales, and technical teams to streamline pipeline workflows and minimize manual operations.",
+    ],
+  },
+  {
+    title: "Solution Resources",
+    issuer: "Solution Resources",
+    period: "Nov 2025 – Feb 2026",
+    badge: "Full Stack Developer Intern",
+    points: [
+      "Collaborated closely with backend developers to integrate APIs, troubleshoot issues, and deliver seamless functionality.",
+      "Participated in Agile/Scrum workflows, stand-ups, sprint planning, and retrospectives.",
+    ],
+  },
+  {
+    title: "Lit Entertainment (Formerly Literates Esports)",
+    issuer: "NU Baliwag",
+    period: "Apr 2024 – Feb 2025",
+    badge: "Chairman",
+    points: [
+      "Managed organization growth from an esports club into a broader entertainment group.",
+      "Tournament Head for Kasidyahan 2024 University Week Esports Tournament (80+ participants, MLBB/Valorant/CODM).",
+      "Co-led Overclocked inter-organization esports tournament in collaboration with NU Technocrats (50+ participants).",
+    ],
+  },
+  {
+    title: "Google Developer Groups on Campus — NU Baliwag",
+    issuer: "GDGOC NU Baliwag",
+    period: "Jul 2023 – Nov 2023",
+    badge: "Chief Creatives Officer",
+    points: [
+      "Oversee all publication materials and branding efforts for GDGOC NU Baliwag.",
+      "Proposed and led mascot rebranding initiative, transforming updated mascot into physical merchandise that added funding streams.",
+    ],
+  },
+  {
+    title: "Wisdom of Cards",
+    issuer: "Freelance",
+    period: "2021 – Present",
+    badge: "Independent Tarot Consultant",
+    points: [
+      "Delivered 200+ personalized tarot consultations, helping clients make informed decisions.",
+      "Spearheaded launch & operations of Tarot Reading booth during Opening Week, completing 80+ readings over two days.",
+    ],
   },
 ];
 
@@ -514,36 +579,66 @@ export default function Certificates({
       )}
 
       {/* ─── LEADERSHIP & ACHIEVEMENTS SECTION ─── */}
-      <div className="border-b border-gray-200 px-8 sm:px-12 lg:px-16 py-4 bg-gray-50/50">
+      <div className="border-b border-gray-200 px-8 sm:px-12 lg:px-16 py-4 bg-gray-50/50 flex items-center justify-between">
         <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-gray-500">
-          Leadership & Achievements
+          Leadership & Experience
+        </span>
+        <span className="text-xs font-mono text-gray-400 font-bold">
+          [{achievements.length} POSITIONS]
         </span>
       </div>
       <div className="divide-y divide-gray-200">
         {achievements.map((item, index) => (
           <div
             key={index}
-            className="px-8 sm:px-12 lg:px-16 py-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group hover:bg-gray-50/40 transition-colors"
+            className="px-8 sm:px-12 lg:px-16 py-8 flex flex-col gap-4 group hover:bg-gray-50/50 transition-colors"
           >
-            <div className="flex items-start sm:items-center gap-4 sm:gap-6">
-              {/* Number */}
-              <span className="text-xs font-mono font-bold text-gray-400 mt-1 sm:mt-0">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              {/* Title & Issuer */}
-              <div>
-                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-black group-hover:translate-x-1 transition-transform duration-300 leading-tight">
-                  {item.title}
-                </h3>
-                <p className="text-sm font-mono uppercase tracking-wider text-gray-500 mt-1">
-                  {item.issuer}
-                </p>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-start sm:items-center gap-4 sm:gap-6">
+                {/* Number */}
+                <span className="text-xs font-mono font-bold text-gray-400 mt-1 sm:mt-0 shrink-0">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                {/* Title & Issuer */}
+                <div>
+                  <h3 className="text-lg sm:text-xl font-bold tracking-tight text-black group-hover:translate-x-1 transition-transform duration-300 leading-tight">
+                    {item.title}
+                  </h3>
+                  <div className="flex flex-wrap items-center gap-x-2 text-xs font-mono text-gray-500 mt-1">
+                    <span className="uppercase tracking-wider font-semibold text-gray-700">
+                      {item.issuer}
+                    </span>
+                    {item.period && (
+                      <>
+                        <span>•</span>
+                        <span className="text-gray-500">{item.period}</span>
+                      </>
+                    )}
+                  </div>
+                </div>
               </div>
+              {/* Badge */}
+              {item.badge && (
+                <span className="px-3 py-1 bg-black text-white text-[10px] font-mono uppercase tracking-wider self-start sm:self-auto shrink-0 shadow-xs">
+                  {item.badge}
+                </span>
+              )}
             </div>
-            {/* Badge */}
-            <span className="px-3 py-1.5 bg-black text-white text-[10px] font-mono uppercase tracking-wider self-start sm:self-auto shrink-0">
-              {item.badge}
-            </span>
+
+            {/* Bullet Points */}
+            {item.points && item.points.length > 0 && (
+              <ul className="pl-10 sm:pl-12 space-y-1.5 pt-1">
+                {item.points.map((pt, pIdx) => (
+                  <li
+                    key={pIdx}
+                    className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-600 leading-relaxed"
+                  >
+                    <span className="text-black font-bold mt-0.5">•</span>
+                    <span>{pt}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         ))}
       </div>

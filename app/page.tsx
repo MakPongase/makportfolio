@@ -1,7 +1,6 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Introduction from "./components/Introduction";
-import Experience from "./components/Experience";
 import About from "./components/About";
 import Certificates from "./components/Certificates";
 import Skills from "./components/Skills";
@@ -16,7 +15,6 @@ export default function Home() {
       <main className="md:pl-20 transition-all duration-300">
         <Hero />
         <Introduction />
-        <Experience />
         <About />
         <Certificates />
         <Skills />
