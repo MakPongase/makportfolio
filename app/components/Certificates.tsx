@@ -343,6 +343,7 @@ export default function Certificates({
   className = "",
 }: CertificatesProps) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedAchievement, setSelectedAchievement] = useState<AchievementItem | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>("ALL");
   const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -539,9 +540,8 @@ export default function Certificates({
       {/* ─── PAGINATION BAR ─── */}
       {totalPages > 1 && (
         <div className="px-8 sm:px-12 lg:px-16 py-6 border-b border-gray-200 bg-white flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-xs font-mono text-gray-500 uppercase tracking-wider">
-            Showing Page <span className="font-bold text-black">{currentPage}</span> of{" "}
-            <span className="font-bold text-black">{totalPages}</span> ({filteredCertificates.length} items)
+          <div className="text-xs font-mono font-bold uppercase tracking-wider text-gray-500">
+            PAGE {currentPage} OF {totalPages} ({filteredCertificates.length} CERTIFICATES)
           </div>
 
           <div className="flex items-center gap-2">
@@ -584,66 +584,53 @@ export default function Certificates({
           Leadership & Experience
         </span>
         <span className="text-xs font-mono text-gray-400 font-bold">
-          [{achievements.length} POSITIONS]
+          [{achievements.length} POSITIONS — CLICK FOR DETAILS]
         </span>
       </div>
       <div className="divide-y divide-gray-200">
         {achievements.map((item, index) => (
           <div
             key={index}
-            className="px-8 sm:px-12 lg:px-16 py-8 flex flex-col gap-4 group hover:bg-gray-50/50 transition-colors"
+            onClick={() => setSelectedAchievement(item)}
+            className="px-8 sm:px-12 lg:px-16 py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group hover:bg-gray-50/80 transition-colors cursor-pointer"
           >
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex items-start sm:items-center gap-4 sm:gap-6">
-                {/* Number */}
-                <span className="text-xs font-mono font-bold text-gray-400 mt-1 sm:mt-0 shrink-0">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                {/* Title & Issuer */}
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold tracking-tight text-black group-hover:translate-x-1 transition-transform duration-300 leading-tight">
-                    {item.title}
-                  </h3>
-                  <div className="flex flex-wrap items-center gap-x-2 text-xs font-mono text-gray-500 mt-1">
-                    <span className="uppercase tracking-wider font-semibold text-gray-700">
-                      {item.issuer}
-                    </span>
-                    {item.period && (
-                      <>
-                        <span>•</span>
-                        <span className="text-gray-500">{item.period}</span>
-                      </>
-                    )}
-                  </div>
+            <div className="flex items-start sm:items-center gap-4 sm:gap-6">
+              {/* Number */}
+              <span className="text-xs font-mono font-bold text-gray-400 mt-1 sm:mt-0 shrink-0">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              {/* Title & Issuer */}
+              <div>
+                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-black group-hover:text-gray-600 transition-colors leading-tight flex items-center gap-2">
+                  <span>{item.title}</span>
+                  <span className="text-xs font-mono text-gray-400 group-hover:text-black transition-colors font-normal">
+                    ↗
+                  </span>
+                </h3>
+                <div className="flex flex-wrap items-center gap-x-2 text-xs font-mono text-gray-500 mt-1">
+                  <span className="uppercase tracking-wider font-semibold text-gray-700">
+                    {item.issuer}
+                  </span>
+                  {item.period && (
+                    <>
+                      <span>•</span>
+                      <span className="text-gray-500">{item.period}</span>
+                    </>
+                  )}
                 </div>
               </div>
-              {/* Badge */}
-              {item.badge && (
-                <span className="px-3 py-1 bg-black text-white text-[10px] font-mono uppercase tracking-wider self-start sm:self-auto shrink-0 shadow-xs">
-                  {item.badge}
-                </span>
-              )}
             </div>
-
-            {/* Bullet Points */}
-            {item.points && item.points.length > 0 && (
-              <ul className="pl-10 sm:pl-12 space-y-1.5 pt-1">
-                {item.points.map((pt, pIdx) => (
-                  <li
-                    key={pIdx}
-                    className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-600 leading-relaxed"
-                  >
-                    <span className="text-black font-bold mt-0.5">•</span>
-                    <span>{pt}</span>
-                  </li>
-                ))}
-              </ul>
+            {/* Badge */}
+            {item.badge && (
+              <span className="px-3 py-1 bg-black text-white text-[10px] font-mono uppercase tracking-wider self-start sm:self-auto shrink-0 shadow-xs group-hover:bg-gray-800 transition-colors">
+                {item.badge}
+              </span>
             )}
           </div>
         ))}
       </div>
 
-      {/* Modal for Image Preview */}
+      {/* Modal for Certificate Image Preview */}
       {selectedImage &&
         typeof window !== "undefined" &&
         createPortal(
@@ -671,7 +658,84 @@ export default function Certificates({
           </div>,
           document.body
         )}
+
+      {/* Modal for Leadership & Role Details */}
+      {selectedAchievement &&
+        typeof window !== "undefined" &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 sm:p-8 animate-in fade-in duration-200"
+            onClick={() => setSelectedAchievement(null)}
+          >
+            <div
+              className="relative max-w-2xl w-full bg-white border-2 border-black p-6 sm:p-10 shadow-2xl flex flex-col gap-6"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header Bar */}
+              <div className="flex items-start justify-between gap-4 border-b border-gray-200 pb-4">
+                <div className="space-y-1">
+                  <div className="flex flex-wrap items-center gap-2 text-xs font-mono uppercase tracking-widest text-gray-500">
+                    <span>{selectedAchievement.issuer}</span>
+                    {selectedAchievement.period && (
+                      <>
+                        <span>•</span>
+                        <span>{selectedAchievement.period}</span>
+                      </>
+                    )}
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-black">
+                    {selectedAchievement.title}
+                  </h3>
+                </div>
+
+                <button
+                  onClick={() => setSelectedAchievement(null)}
+                  className="text-xs font-mono font-bold uppercase tracking-widest border border-black px-3 py-1.5 hover:bg-black hover:text-white transition-colors shrink-0"
+                >
+                  [X] CLOSE
+                </button>
+              </div>
+
+              {/* Role Badge */}
+              {selectedAchievement.badge && (
+                <div>
+                  <span className="px-3 py-1 bg-black text-white text-[11px] font-mono uppercase tracking-wider shadow-xs">
+                    {selectedAchievement.badge}
+                  </span>
+                </div>
+              )}
+
+              {/* Key Contributions & Details */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-gray-400">
+                  Key Contributions & Impact
+                </h4>
+                <ul className="space-y-2.5">
+                  {selectedAchievement.points?.map((pt, pIdx) => (
+                    <li
+                      key={pIdx}
+                      className="flex items-start gap-3 text-sm text-gray-700 leading-relaxed font-normal"
+                    >
+                      <span className="text-black font-bold mt-0.5">•</span>
+                      <span>{pt}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Modal Footer */}
+              <div className="border-t border-gray-200 pt-4 flex justify-end">
+                <button
+                  onClick={() => setSelectedAchievement(null)}
+                  className="px-5 py-2 text-xs font-mono font-bold uppercase tracking-widest bg-black text-white hover:bg-gray-800 transition-colors"
+                >
+                  DONE
+                </button>
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
     </section>
   );
 }
-
