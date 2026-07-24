@@ -578,35 +578,44 @@ export default function Certificates({
         </div>
       )}
 
-      {/* ─── LEADERSHIP & ACHIEVEMENTS SECTION ─── */}
-      <div className="border-b border-gray-200 px-8 sm:px-12 lg:px-16 py-4 bg-gray-50/50 flex items-center justify-between">
-        <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-gray-500">
-          Leadership & Experience
-        </span>
-        <span className="text-xs font-mono text-gray-400 font-bold">
-          [{achievements.length} POSITIONS — CLICK FOR DETAILS]
+      {/* ─── LEADERSHIP & EXPERIENCE SECTION ─── */}
+      <div className="border-b border-gray-200 px-8 sm:px-12 lg:px-16 py-8 bg-gray-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-black uppercase">
+            Leadership & Experience
+          </h3>
+          <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mt-1">
+            Organizational Roles & Professional Impact
+          </p>
+        </div>
+        <span className="text-xs font-mono font-bold text-gray-500 bg-white border border-gray-300 px-3 py-1.5 self-start sm:self-auto shadow-xs">
+          [{achievements.length} POSITIONS — CLICK CARD FOR DETAILS]
         </span>
       </div>
-      <div className="divide-y divide-gray-200">
+
+      <div className="grid grid-cols-1 md:grid-cols-2 border-b border-gray-200 divide-y md:divide-y-0">
         {achievements.map((item, index) => (
           <div
             key={index}
             onClick={() => setSelectedAchievement(item)}
-            className="px-8 sm:px-12 lg:px-16 py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group hover:bg-gray-50/80 transition-colors cursor-pointer"
+            className="p-6 sm:p-8 border-r border-b border-gray-200 flex flex-col justify-between gap-4 group hover:bg-gray-50/80 transition-colors cursor-pointer"
           >
-            <div className="flex items-start sm:items-center gap-4 sm:gap-6">
-              {/* Number */}
-              <span className="text-xs font-mono font-bold text-gray-400 mt-1 sm:mt-0 shrink-0">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              {/* Title & Issuer */}
-              <div>
-                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-black group-hover:text-gray-600 transition-colors leading-tight flex items-center gap-2">
-                  <span>{item.title}</span>
-                  <span className="text-xs font-mono text-gray-400 group-hover:text-black transition-colors font-normal">
-                    ↗
+            <div className="space-y-3">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-xs font-mono font-bold text-gray-400">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                {item.badge && (
+                  <span className="px-2.5 py-0.5 bg-black text-white text-[10px] font-mono uppercase tracking-wider shadow-xs">
+                    {item.badge}
                   </span>
-                </h3>
+                )}
+              </div>
+
+              <div>
+                <h4 className="text-base sm:text-lg font-bold tracking-tight text-black group-hover:text-gray-700 transition-colors leading-snug">
+                  {item.title}
+                </h4>
                 <div className="flex flex-wrap items-center gap-x-2 text-xs font-mono text-gray-500 mt-1">
                   <span className="uppercase tracking-wider font-semibold text-gray-700">
                     {item.issuer}
@@ -614,18 +623,19 @@ export default function Certificates({
                   {item.period && (
                     <>
                       <span>•</span>
-                      <span className="text-gray-500">{item.period}</span>
+                      <span>{item.period}</span>
                     </>
                   )}
                 </div>
               </div>
             </div>
-            {/* Badge */}
-            {item.badge && (
-              <span className="px-3 py-1 bg-black text-white text-[10px] font-mono uppercase tracking-wider self-start sm:self-auto shrink-0 shadow-xs group-hover:bg-gray-800 transition-colors">
-                {item.badge}
+
+            <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-mono font-bold text-black group-hover:text-gray-600 transition-colors">
+              <span>VIEW ROLE DETAILS</span>
+              <span className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+                ↗
               </span>
-            )}
+            </div>
           </div>
         ))}
       </div>
@@ -638,14 +648,18 @@ export default function Certificates({
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 sm:p-8 animate-in fade-in duration-200"
             onClick={() => setSelectedImage(null)}
           >
-            <div className="relative max-w-5xl w-full max-h-[90vh] flex flex-col items-center">
+            <div
+              className="relative max-w-5xl w-full max-h-[90vh] flex flex-col items-center bg-black p-6 border border-white"
+              onClick={(e) => e.stopPropagation()}
+            >
               <button
                 onClick={() => setSelectedImage(null)}
-                className="absolute -top-12 right-0 text-white font-mono text-sm uppercase tracking-widest border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors"
+                className="absolute top-4 right-4 px-4 py-2 bg-white text-black font-mono font-bold text-xs uppercase tracking-widest hover:bg-gray-200 transition-colors"
+                title="Close"
               >
-                Close [X]
+                ✕ CLOSE
               </button>
-              <div className="relative w-full max-h-[85vh] aspect-[16/11] border border-white bg-black">
+              <div className="relative w-full max-h-[80vh] aspect-[16/11] bg-black mt-8">
                 <Image
                   src={selectedImage}
                   alt="Certificate Preview"
@@ -671,11 +685,11 @@ export default function Certificates({
               className="relative max-w-2xl w-full bg-white border-2 border-black p-6 sm:p-10 shadow-2xl flex flex-col gap-6"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header Bar */}
+              {/* Top Close Bar */}
               <div className="flex items-start justify-between gap-4 border-b border-gray-200 pb-4">
                 <div className="space-y-1">
                   <div className="flex flex-wrap items-center gap-2 text-xs font-mono uppercase tracking-widest text-gray-500">
-                    <span>{selectedAchievement.issuer}</span>
+                    <span className="font-bold text-gray-700">{selectedAchievement.issuer}</span>
                     {selectedAchievement.period && (
                       <>
                         <span>•</span>
@@ -683,34 +697,25 @@ export default function Certificates({
                       </>
                     )}
                   </div>
-                  <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-black">
+                  <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-black leading-snug">
                     {selectedAchievement.title}
                   </h3>
                 </div>
 
                 <button
                   onClick={() => setSelectedAchievement(null)}
-                  className="text-xs font-mono font-bold uppercase tracking-widest border border-black px-3 py-1.5 hover:bg-black hover:text-white transition-colors shrink-0"
+                  className="px-4 py-2 bg-black text-white font-mono font-bold text-xs uppercase tracking-widest hover:bg-gray-800 transition-colors shrink-0"
                 >
-                  [X] CLOSE
+                  ✕ CLOSE
                 </button>
               </div>
 
-              {/* Role Badge */}
-              {selectedAchievement.badge && (
-                <div>
-                  <span className="px-3 py-1 bg-black text-white text-[11px] font-mono uppercase tracking-wider shadow-xs">
-                    {selectedAchievement.badge}
-                  </span>
-                </div>
-              )}
-
               {/* Key Contributions & Details */}
-              <div className="space-y-3">
+              <div className="space-y-3 border-t border-gray-200 pt-6">
                 <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-gray-400">
                   Key Contributions & Impact
                 </h4>
-                <ul className="space-y-2.5">
+                <ul className="space-y-3">
                   {selectedAchievement.points?.map((pt, pIdx) => (
                     <li
                       key={pIdx}
@@ -721,16 +726,6 @@ export default function Certificates({
                     </li>
                   ))}
                 </ul>
-              </div>
-
-              {/* Modal Footer */}
-              <div className="border-t border-gray-200 pt-4 flex justify-end">
-                <button
-                  onClick={() => setSelectedAchievement(null)}
-                  className="px-5 py-2 text-xs font-mono font-bold uppercase tracking-widest bg-black text-white hover:bg-gray-800 transition-colors"
-                >
-                  DONE
-                </button>
               </div>
             </div>
           </div>,
