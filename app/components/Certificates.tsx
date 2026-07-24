@@ -279,7 +279,7 @@ export default function Certificates({
                   src={cert.imageUrl}
                   alt={cert.title}
                   fill
-                  className="object-cover grayscale group-hover/img:grayscale-0 group-hover/img:scale-105 transition-all duration-500"
+                  className="object-contain p-4 sm:p-5 grayscale group-hover/img:grayscale-0 group-hover/img:scale-105 transition-all duration-500"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 {cert.badge && (
