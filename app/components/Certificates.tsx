@@ -281,6 +281,8 @@ export default function Certificates({
   const [activeCategory, setActiveCategory] = useState<string>("ALL");
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  const [hoveredCert, setHoveredCert] = useState<string | null>(null);
+
   const ITEMS_PER_PAGE = 6;
 
   const categories = [
@@ -370,7 +372,7 @@ export default function Certificates({
         {paginatedCertificates.map((cert, index) => (
           <div
             key={index}
-            className="border-r border-b border-gray-200 p-6 sm:p-8 flex flex-col justify-between gap-6 group hover:bg-gray-50/60 transition-colors"
+            className="border-r border-b border-gray-200 p-6 sm:p-8 flex flex-col justify-between gap-6 group hover:bg-gray-50/60 transition-colors relative"
           >
             <div className="space-y-4">
               {/* Header Badges */}
@@ -414,10 +416,32 @@ export default function Certificates({
               )}
             </div>
 
-            {/* Action Footer with Image Preview Trigger */}
-            <div className="pt-4 border-t border-gray-200 flex items-center justify-between gap-4">
+            {/* Action Footer with Image Preview Trigger & Floating Popover */}
+            <div className="pt-4 border-t border-gray-200 flex items-center justify-between gap-4 relative">
+              {/* Floating Hover Popover */}
+              {hoveredCert === cert.imageUrl && (
+                <div className="absolute bottom-full left-0 mb-3 z-30 pointer-events-none hidden sm:block animate-in fade-in zoom-in-95 duration-150">
+                  <div className="bg-white border-2 border-black p-2 shadow-2xl rounded-none w-60">
+                    <div className="relative aspect-[16/11] w-full bg-gray-100 border border-gray-200 overflow-hidden">
+                      <Image
+                        src={cert.imageUrl}
+                        alt={cert.title}
+                        fill
+                        className="object-contain p-2"
+                        sizes="240px"
+                      />
+                    </div>
+                    <div className="mt-1.5 text-[9px] font-mono font-bold uppercase tracking-widest text-center text-black bg-gray-100 py-1">
+                      [ CLICK TO ENLARGE ]
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <button
                 onClick={() => setSelectedImage(cert.imageUrl)}
+                onMouseEnter={() => setHoveredCert(cert.imageUrl)}
+                onMouseLeave={() => setHoveredCert(null)}
                 className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-black hover:text-gray-600 transition-colors group/btn"
               >
                 <span>VIEW CERTIFICATE</span>
@@ -429,6 +453,8 @@ export default function Certificates({
               {/* Mini Preview Thumbnail Trigger */}
               <div
                 onClick={() => setSelectedImage(cert.imageUrl)}
+                onMouseEnter={() => setHoveredCert(cert.imageUrl)}
+                onMouseLeave={() => setHoveredCert(null)}
                 className="relative w-10 h-7 border border-gray-300 bg-gray-100 overflow-hidden cursor-pointer shrink-0 hover:border-black transition-colors"
                 title="Click to expand certificate"
               >
