@@ -109,6 +109,16 @@ const defaultCertificates: CertificateItem[] = [
     category: "Cloud & AWS",
   },
   {
+    title: "Agentic AI Engineer Certification",
+    issuer: "AI Engineering & Autonomous Systems",
+    date: "2026",
+    description:
+      "Advanced certification covering autonomous AI agent design, tool-calling loops, multi-agent orchestration, dynamic context retrieval, and structured LLM reasoning architectures.",
+    imageUrl: "/images/certificates/AGENTIC AI ENGINEER CERTIFICATE.jpg",
+    badge: "Agentic AI",
+    category: "AI & Tech",
+  },
+  {
     title: "Claude 101 Certificate",
     issuer: "Anthropic",
     date: "2026",
