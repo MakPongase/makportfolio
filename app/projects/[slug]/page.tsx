@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ProjectGallery from "../components/ProjectGallery";
 import ProjectBriefing from "../components/ProjectBriefing";
-import VisualGalleryLayout from "../components/VisualGalleryLayout";
 
 interface ProjectData {
   slug: string;
@@ -297,19 +296,12 @@ const projects: Record<string, ProjectData> = {
     category: "AI & Business Systems",
     year: "2024",
     role: "Full-Stack Developer / System Architect",
-    overview: "Developed a scalable construction management system with 10 user roles (e.g., PMs, Engineers, QS, HR), enabling real-time collaboration via Firebase and mobile access through React Native. Built with React.js, Node.js, Express, and PostgreSQL using RBAC for secure access. Integrated Firestore for document handling and project analytics (BOQ, CPM, cost estimation). Features include inventory, equipment, and personnel modules.",
-    challenge: "Construction firms struggle with static material pricing, inefficient resource allocation, and manual paper reporting, resulting in cost overruns and project delays.",
-    solution: "Built a supplier bidding workflow with real-time BOQ price updates, automated progress reporting from raw site logs using Generative AI, and equipment location tracking for site allocation.",
-    results: "Delivered a functional capstone research application enabling competitive supplier procurement, transparent resource allocation, and streamlined progress reporting.",
+    overview: "A construction management application for supplier bidding, budgeting, and resource tracking across 10 user roles. Built as a capstone research application.",
+    challenge: "Project teams need to compare supplier prices, track material spending against estimates, and coordinate equipment and personnel across different roles.",
+    solution: "Built supplier bidding and bill-of-quantities workflows, budget comparisons, and resource-management modules. Added role-based access and AI-assisted progress reports from site logs.",
+    results: "Delivered a functional capstone application covering procurement, budget tracking, and progress reporting.",
     techStack: ["React.js", "React Native", "Node.js", "Express", "PostgreSQL", "Firebase", "JWT RESTful APIs", "Tailwind CSS"],
-    achievements: [
-      "Full-Stack Developer / System Architect — Designed system for 10 user roles with RBAC",
-      "Real-time collaboration via Firebase Firestore & mobile access via React Native",
-      "Integrated project analytics for BOQ, Critical Path Method (CPM), and cost estimation",
-      "Competitive supplier bidding system with real-time BOQ price updates",
-      "Built complete inventory, equipment location, and personnel tracking modules",
-      "Generative AI report generation compiling raw site data into progress reports",
-    ],
+    achievements: ["Role-based access for 10 user roles","Supplier bidding and bill-of-quantities pricing","Estimated versus actual budget comparisons","Inventory, equipment, and personnel tracking","AI-assisted report generation from site logs"],
     gallery: [
       "/images/gallery/fullstack/construction-pms/pms-image1.png",
       "/images/gallery/fullstack/construction-pms/pms-image2.png",
@@ -323,19 +315,12 @@ const projects: Record<string, ProjectData> = {
     category: "AI & Business Systems",
     year: "2024",
     role: "Lead Developer & Designer",
-    overview: "A dual-sided service marketplace and business management platform for MSMEs. BizWise connects client bookings directly to financial ledgers with cash flow forecasting and revenue trend analysis.",
-    challenge: "Service-oriented MSMEs (salons, repair technicians, event planners) lack a unified system for booking and accounting, forcing them to rely on pen-and-paper logbooks that lead to manual errors and poor financial visibility.",
-    solution: "Built a React Native and Node.js platform where customer bookings automatically generate financial ledger entries, providing service providers with cash flow forecasting, peak hour analysis, and revenue trend reports.",
-    results: "Delivered a capstone research project eliminating manual paper logbooks through automated booking-to-ledger accounting and cash flow forecasting.",
+    overview: "A service marketplace and business management application connecting customer bookings with checkout and financial records. Built as a BSIT capstone research project.",
+    challenge: "Service businesses need to manage appointments, staff assignments, payments, and financial records without repeatedly entering the same information.",
+    solution: "Connected bookings to financial ledger entries and built views for appointment management, walk-in checkout, and business analytics.",
+    results: "Delivered a capstone application with booking-to-ledger workflows, cash-flow forecasting, and revenue reports.",
     techStack: ["React Native", "Node.js", "Express", "Firebase Firestore", "JWT", "Cash Flow Analytics"],
-    achievements: [
-      "Dual-sided marketplace for service providers and clients",
-      "Automated booking-to-financial-ledger workflow",
-      "Cash flow forecasting and revenue trend visualization",
-      "Peak service hours analysis for scheduling optimization",
-      "Eliminates manual data entry with automated transaction recording",
-      "Production-ready research application (BSIT Capstone Project)",
-    ],
+    achievements: ["Customer and service-provider workflows","Appointment states and staff assignment","Walk-in checkout and payment recording","Booking-to-ledger transaction recording","Cash-flow and revenue reports"],
     gallery: [
       "/images/gallery/fullstack/bizwise/bizwise-logo.png",
       "/images/gallery/fullstack/bizwise/bizwise-image1.png",
@@ -432,19 +417,12 @@ const projects: Record<string, ProjectData> = {
     category: "Full-Stack Development & AI",
     year: "2026",
     role: "Full-Stack Developer",
-    overview: "DialyLink is a telemedicine and dialysis patient monitoring platform designed to bridge the gap between patients, nephrologists, and system administrators with multi-role access.",
-    challenge: "Improving dialysis care requires real-time monitoring and AI-assisted insights. Standard Retrieval-Augmented Generation (RAG) setups relying on vector databases risk hallucination, which is unacceptable for healthcare compliance and patient safety.",
-    solution: "Built a platform with a decoupled client-server architecture serving Patients, Doctors, and Admins. Developed an AI pipeline that queries PostgreSQL directly for exact patient medical history and injects it into Gemini prompts dynamically, significantly reducing hallucination risks inherent in standard vector DB RAG setups.",
-    results: "Delivered a secure platform with AI-assisted symptom triage that routes patients to appropriate specialists, a health companion chat with context-injected data, and an AI Clinical Advisor that summarizes patient records for doctors.",
+    overview: "A telemedicine and dialysis monitoring application with separate patient, doctor, and administrator workflows. Conceptualized and built from scratch in two days.",
+    challenge: "The application brings records, appointments, and monitoring into one place, with different tasks and access levels for patients, doctors, and administrators.",
+    solution: "Built role-based portals connected to a Node.js and Express API. For the AI features, the server retrieves patient records from PostgreSQL and includes them in Gemini requests.",
+    results: "Implemented patient and doctor interfaces, appointment workflows, patient-record views, and AI-assisted features in an independent two-day build.",
     techStack: ["Next.js 14", "Tailwind CSS", "Node.js", "Express.js", "PostgreSQL", "Neon", "Supabase", "Google Gemini 2.5 Flash"],
-    achievements: [
-      "Decoupled client-server architecture serving 3 distinct user roles",
-      "AI-assisted symptom triage using Google Gemini",
-      "Health Companion Chat with dynamic PostgreSQL context injection",
-      "AI Clinical Advisor for rapid patient record summarization",
-      "Direct database prompt injection architecture to minimize AI hallucination risks",
-      "Secure doctor verification system managed by system administrators",
-    ],
+    achievements: ["Patient, doctor, and administrator workflows","Patient records with sessions, labs, prescriptions, and notes","Appointment booking and consultation actions","AI-assisted symptom triage and patient-record summaries","PostgreSQL-backed context for AI requests","Administrator-managed doctor verification"],
     gallery: [
       "/images/dialylink/Screenshot (877).png",
       "/images/dialylink/Screenshot (878).png",
@@ -554,198 +532,24 @@ const projects: Record<string, ProjectData> = {
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = projects[slug];
+  if (!project) notFound();
 
-  if (!project) {
-    notFound();
-  }
-
-  if (project.slug === "graphic-designing") {
-    return (
-      <main className="min-h-screen bg-white text-black selection:bg-black selection:text-white">
-        <div className="border-b border-gray-200 px-4 sm:px-12 py-3 sm:py-4 flex items-center justify-between">
-          <Link href="/#about" className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors group">
-            <svg className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            <span>Back to Portfolio</span>
-          </Link>
-          <div className="hidden sm:flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-gray-400">
-            <span className="text-black font-bold">{project.category}</span>
-            <span>•</span>
-            <span>{project.year}</span>
-          </div>
-        </div>
-        <VisualGalleryLayout project={project} />
-      </main>
-    );
-  }
-
+  const primary = ["dialylink", "bizwise", "aws-cloud-leadership", "lit-entertainment-leadership", "speaker-educator"];
+  const nextSlug = primary[(primary.indexOf(slug) + 1) % primary.length];
+  const nextProject = projects[nextSlug];
+  const status = slug === "construction-pms" || slug === "bizwise" ? "Capstone research project" : slug === "dialylink" ? "Independent project · two-day build" : project.category;
+  const heroImage = slug === "dialylink" ? "/images/dialylink/doctors/Screenshot (1080).png" : slug === "bizwise" ? "/images/gallery/fullstack/bizwise/Screenshot (1056).png" : project.gallery[0];
+  const galleries = project.additionalGalleries?.length ? project.additionalGalleries : [{ title: "Interface & project walkthrough", description: "Open an image to inspect it at full size.", images: project.gallery.slice(1) }];
   return (
-    <main className="min-h-screen bg-white text-black selection:bg-black selection:text-white">
-      {/* Top Navigation Bar */}
-      <div className="border-b border-gray-200 px-4 sm:px-12 py-3 sm:py-4 flex items-center justify-between">
-        <Link
-          href="/#about"
-          className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors group"
-        >
-          <svg className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          <span>Back to Portfolio</span>
-        </Link>
-
-        <div className="hidden sm:flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-gray-400">
-          <span className="text-black font-bold">{project.category}</span>
-          <span>•</span>
-          <span>{project.year}</span>
-        </div>
-      </div>
-
-      {/* Editorial Header & Metadata Band */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-12 pt-6 pb-6 border-b border-gray-200">
-        {/* Dossier Code Label */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
-          <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-gray-400">
-            PROJECT DOSSIER // {project.slug.toUpperCase()}
-          </span>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-mono text-gray-500">
-            <span><strong className="text-black">ROLE:</strong> {project.role}</span>
-            <span className="hidden sm:inline">•</span>
-            <span><strong className="text-black">TIMELINE:</strong> {project.year}</span>
-          </div>
-        </div>
-
-        {/* Title & Live Action Button Row */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-black leading-none max-w-4xl">
-            {project.title}
-          </h1>
-
-          {project.link && (
-            <Link
-              href={project.link}
-              target="_blank"
-              className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-black text-white text-xs font-mono font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors flex-shrink-0 shadow-xs"
-            >
-              <span>{project.linkLabel || "View Live Project"}</span>
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </Link>
-          )}
-        </div>
-
-        {/* Technology Stack Pills */}
-        <div className="pt-4 border-t border-gray-100 flex flex-wrap items-center gap-1.5">
-          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-gray-400 mr-2">
-            STACK & TOOLS:
-          </span>
-          {project.techStack.map((tech, index) => (
-            <span
-              key={index}
-              className="px-2 py-1 bg-gray-50 border border-gray-200 text-[10px] font-mono font-semibold text-black"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      {/* Main Visual Showcase (Immediate Visual Gratification!) */}
-      {project.gallery && project.gallery.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-12 py-6 sm:py-10 border-b border-gray-200">
-          <div className="w-full bg-gray-100 border border-gray-200 overflow-hidden flex items-center justify-center max-h-[420px] sm:max-h-[560px] group">
-            <img
-              src={project.gallery[0]}
-              alt={project.title}
-              className="w-full h-auto max-h-[640px] object-contain sm:object-cover object-center group-hover:scale-[1.01] transition-transform duration-700"
-            />
-          </div>
-          <div className="mt-3 flex items-center justify-between text-xs font-mono text-gray-400">
-            <span>FIGURE 01 // MAIN VISUAL SHOWCASE</span>
-            <span className="text-black font-semibold">{project.title.toUpperCase()}</span>
-          </div>
-        </section>
-      )}
-
-      {/* Interactive Case Study Briefing (Non-Wordy, Tabbed, Scannable) */}
-      <ProjectBriefing
-        overview={project.overview}
-        challenge={project.challenge}
-        solution={project.solution}
-        results={project.results}
-        achievements={project.achievements}
-      />
-
-      {/* Marketing Impact Section */}
-      {project.marketingGallery && project.marketingGallery.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-12 py-8 sm:py-12 border-b border-gray-200">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-4 mb-6 sm:mb-8">
-            <div>
-              <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-tight text-black">
-                Marketing Impact & Outreach
-              </h2>
-              <p className="text-sm text-gray-600 mt-1 max-w-2xl">
-                The project became a self-marketing powerhouse, reaching thousands of students organically without aggressive promotional efforts.
-              </p>
-            </div>
-            <span className="text-xs font-mono font-bold text-gray-400">
-              [{project.marketingGallery.length} FILES]
-            </span>
-          </div>
-
-          <ProjectGallery images={project.marketingGallery} projectTitle={`${project.title} - Marketing`} />
-        </section>
-      )}
-
-      {/* Additional Galleries Section (e.g. Tournaments, Workshops) */}
-      {project.additionalGalleries && project.additionalGalleries.length > 0 && (
-        <>
-          {project.additionalGalleries.map((gallery, galleryIndex) => (
-            <section key={galleryIndex} className="max-w-7xl mx-auto px-4 sm:px-12 py-8 sm:py-12 border-b border-gray-200">
-              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-4 mb-6 sm:mb-8">
-                <div>
-                  <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-tight text-black">
-                    {gallery.title}
-                  </h2>
-                  {gallery.description && (
-                    <p className="text-sm text-gray-600 mt-1 max-w-2xl">
-                      {gallery.description}
-                    </p>
-                  )}
-                </div>
-                <span className="text-xs font-mono font-bold text-gray-400">
-                  [{gallery.images.length} FILES]
-                </span>
-              </div>
-
-              <ProjectGallery images={gallery.images} projectTitle={gallery.title} />
-            </section>
-          ))}
-        </>
-      )}
-
-      {/* Standard Project Gallery (when no additional Galleries) */}
-      {!project.additionalGalleries && project.gallery && project.gallery.length > 1 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-12 py-8 sm:py-12 border-b border-gray-200">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-4 mb-6 sm:mb-8">
-            <div>
-              <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-tight text-black">
-                Project Gallery & Screenshots
-              </h2>
-              <p className="text-sm text-gray-600 mt-1">
-                Visual walkthrough and highlights from {project.title}.
-              </p>
-            </div>
-            <span className="text-xs font-mono font-bold text-gray-400">
-              [{project.gallery.slice(1).length} FILES]
-            </span>
-          </div>
-
-          <ProjectGallery images={project.gallery.slice(1)} projectTitle={project.title} />
-        </section>
-      )}
+    <main className="project-page">
+      <a href="#project-content" className="skip-link">Skip to project</a>
+      <header className="project-page-header site-width"><Link href="/#work">← Back to work</Link><Link href="/" className="wordmark" aria-label="Mak Pongase home">mak</Link></header>
+      <section id="project-content" className="project-intro site-width"><p className="eyebrow section-kicker">{project.category}</p><h1>{project.title}</h1><p>{project.overview}</p><dl className="case-metadata"><div><dt>Role</dt><dd>{project.role}</dd></div><div><dt>Project</dt><dd>{status}</dd></div><div><dt>Year</dt><dd>{project.year}</dd></div></dl><div className="project-tags" style={{ marginTop: 28 }}>{project.techStack.map((tech) => <span key={tech}>{tech}</span>)}</div>{project.link && <a className="button button-light" style={{ marginTop: 28 }} href={project.link} target="_blank" rel="noreferrer">{project.linkLabel || "View live project"} ↗</a>}</section>
+      {heroImage && <figure className="case-hero site-width"><img src={heroImage} alt={`${project.title} — ${["dialylink", "bizwise"].includes(slug) ? "application interface" : "project showcase"}`} /></figure>}
+      <ProjectBriefing overview={project.overview} challenge={project.challenge} solution={project.solution} results={project.results} achievements={project.achievements} />
+      {galleries.map((gallery, index) => <section className="case-gallery site-width" key={gallery.title}><div className="case-gallery-heading"><p className="eyebrow section-kicker">{String(index + 2).padStart(2, "0")} / Walkthrough</p><h2>{gallery.title}</h2>{gallery.description && <p>{gallery.description}</p>}</div><ProjectGallery images={gallery.images} projectTitle={`${project.title} — ${gallery.title}`} /></section>)}
+      {project.marketingGallery && <section className="case-gallery site-width"><div className="case-gallery-heading"><h2>Promotion & community</h2></div><ProjectGallery images={project.marketingGallery} projectTitle={`${project.title} — Promotion`} /></section>}
+      <footer className="case-end site-width"><Link href="/#work">← All selected work</Link>{nextProject && <Link href={`/projects/${nextSlug}`}>Next: {nextProject.title} ↗</Link>}</footer>
     </main>
   );
 }
-

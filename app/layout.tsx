@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "./portfolio.css";
+import "./portfolio-v2.css";
+import "./portfolio-glass.css";
+import "./portfolio-reveal.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,8 +18,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mak-theta.vercel.app"),
-  title: "John Mark Pongase (Mak) | Versatile Technologist",
-  description: "Portfolio of John Mark Pongase (Mak) - Full-Stack Developer, Game Developer, and Tech Community Leader building ideas across disciplines.",
+  title: "John Mark Pongase | Design & Development",
+  description: "Web and mobile interfaces by John Mark Pongase. Selected work in full-stack development and interface design.",
   keywords: [
     "John Mark Pongase",
     "Mak Pongase",
@@ -36,23 +40,23 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://makpongase.com", // You can update this to your actual domain later
-    title: "John Mark Pongase (Mak) | Versatile Technologist",
-    description: "Full-Stack Developer, Game Developer, and Tech Community Leader building ideas across disciplines.",
+    url: "https://mak-theta.vercel.app",
+    title: "John Mark Pongase | Design & Development",
+    description: "Web and mobile interfaces, from idea to working product. Selected work by John Mark Pongase.",
     siteName: "John Mark Pongase Portfolio",
     images: [
       {
         url: "/images/about-me/mak-pongase-main-picture.png",
         width: 1200,
         height: 630,
-        alt: "John Mark Pongase - Versatile Technologist",
+        alt: "John Mark Pongase — Design & Development",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "John Mark Pongase (Mak) | Versatile Technologist",
-    description: "Full-Stack Developer, Game Developer, and Tech Community Leader building ideas across disciplines.",
+    title: "John Mark Pongase | Design & Development",
+    description: "Web and mobile interfaces, from idea to working product. Selected work by John Mark Pongase.",
     images: ["/images/about-me/mak-pongase-main-picture.png"],
   },
   icons: {
@@ -69,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
